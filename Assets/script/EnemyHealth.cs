@@ -21,12 +21,13 @@ public class EnemyHealth : MonoBehaviour
     Rigidbody2D m_rb;
 
     private void Start()
-    {   
+    {
         maxvalue = (int)slider.maxValue;
         slider.value = maxvalue;
         currenHp = max_hp;
 
         m_rb = GetComponent<Rigidbody2D>();
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -39,7 +40,7 @@ public class EnemyHealth : MonoBehaviour
             health.TakeDamage(_damage);
         }
     }
-    
+
 
     public void TakeDamage(int damage)
     {
@@ -64,13 +65,12 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             join = true;
         }
     }
-
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         join = false;
     }
@@ -78,7 +78,7 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      if(join == true)
+        if (join == true)
         {
             Tracking();
         }
