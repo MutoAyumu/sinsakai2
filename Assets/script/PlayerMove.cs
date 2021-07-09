@@ -29,6 +29,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         m_rb = GetComponent<Rigidbody2D>();
+        m_anim = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -42,29 +43,50 @@ public class PlayerMove : MonoBehaviour
     {
         m_h = Input.GetAxisRaw("Horizontal");
         m_v = Input.GetAxisRaw("Vertical");
-
-        if (Input.GetButton("Horizontal") && air == false)
+        
+        //接地時の移動
+        if (Input.GetButton("Horizontal"))
         {
+            m_anim.SetBool("horizontal",true);
+
             if (m_h > 0)
             {
-                m_rb.velocity = new Vector2(m_movepower * m_h, -1);
+                m_rb.velocity = new Vector2(m_movepower * m_h, m_rb.velocity.y);
             }
             else
             {
-                m_rb.velocity = new Vector2(m_movepower * m_h, -1);
+                m_rb.velocity = new Vector2(m_movepower * m_h, m_rb.velocity.y);
             }
         }
+        else
+        {
+            m_anim.SetBool("horizontal", false);
+        }
+
+        //空中時の移動
+        //if(Input.GetButton("Horizontal") && air == true)
+        //{
+        //    if(m_h > 0)
+        //    {
+                
+        //    }
+        //    else
+        //    {
+
+        //    }
+        //}
 
         if (m_flipX)
         {
             FlipX(m_h);
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && m_jumpcount < m_maxjump)
         {
             Debug.Log("a");
             air = true;
-            m_rb.AddForce(Vector2.up.normalized * m_jumppower, ForceMode2D.Impulse);
+            m_rb.velocity = new Vector2(m_rb.velocity.x, m_jumppower);
+            m_jumpcount++;
         }
     }
 
@@ -74,6 +96,7 @@ public class PlayerMove : MonoBehaviour
         if(collision.gameObject.tag == "ground")
         {
             air = false;
+            m_jumpcount = 0;
         }
     }
 

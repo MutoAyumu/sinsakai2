@@ -39,9 +39,9 @@ public class PlayerController : MonoBehaviour
         //移動
         m_h = Input.GetAxisRaw("Horizontal");
         m_v = Input.GetAxisRaw("Vertical");
-        //m_rb.AddForce(Vector2.right * m_h * m_movePower, ForceMode2D.Force);
-        Vector2 dir = new Vector2(m_h, -1).normalized;
-        m_rb.velocity = dir * m_movePower;
+        m_rb.AddForce(Vector2.right * m_h * m_movePower, ForceMode2D.Force);
+        //Vector2 dir = new Vector2(m_h, -1).normalized;
+        //m_rb.velocity = dir * m_movePower;
 
         if (m_flipX)
         {
@@ -51,9 +51,9 @@ public class PlayerController : MonoBehaviour
         //ジャンプ
         if (Input.GetButtonDown("Jump") && jumpcount < max_jumpcount)
         {
-            //m_rb.AddForce(Vector2.up.normalized * m_jumpPower, ForceMode2D.Impulse);
-            Vector2 dir1 = new Vector2(m_h, 10).normalized;
-            m_rb.velocity = dir1 * m_movePower;
+            m_rb.AddForce(Vector2.up.normalized * m_jumpPower, ForceMode2D.Impulse);
+            //Vector2 dir1 = new Vector2(m_h, 10).normalized;
+            //m_rb.velocity = dir1 * m_movePower;
             jumpcount++;
         }
 
