@@ -25,29 +25,28 @@ public class PlayerMove : MonoBehaviour
 
     //アニメーション
     Animator m_anim = default;
-    
+
     void Start()
     {
         m_rb = GetComponent<Rigidbody2D>();
         m_anim = GetComponent<Animator>();
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate()//決まった一定のタイミングで繰り返される
     {
-        
 
-        
-    }
-
-    void Update()
-    {
-        m_h = Input.GetAxisRaw("Horizontal");
-        m_v = Input.GetAxisRaw("Vertical");
-        
         //接地時の移動
         if (Input.GetButton("Horizontal"))
         {
-            m_anim.SetBool("horizontal",true);
+            if (air == false)//
+            {
+                m_anim.SetBool("horizontal", true);
+            }
+
+            if (air != false)
+            {
+                m_anim.SetBool("horizontal", false);
+            }
 
             if (m_h > 0)
             {
@@ -62,29 +61,21 @@ public class PlayerMove : MonoBehaviour
         {
             m_anim.SetBool("horizontal", false);
         }
+    }
 
-        //空中時の移動
-        //if(Input.GetButton("Horizontal") && air == true)
-        //{
-        //    if(m_h > 0)
-        //    {
-                
-        //    }
-        //    else
-        //    {
-
-        //    }
-        //}
+    void Update()
+    {
+        //入力判定
+        m_h = Input.GetAxisRaw("Horizontal");
+        m_v = Input.GetAxisRaw("Vertical");
 
         if (m_flipX)
         {
             FlipX(m_h);
         }
 
-        if (Input.GetButtonDown("Jump") && m_jumpcount < m_maxjump)
+        if (Input.GetButtonDown("Jump") && m_jumpcount < m_maxjump && air == false)//ボタンが押される・カウントが小さいとき・地面についているとき
         {
-            Debug.Log("a");
-            air = true;
             m_rb.velocity = new Vector2(m_rb.velocity.x, m_jumppower);
             m_jumpcount++;
         }
@@ -93,10 +84,21 @@ public class PlayerMove : MonoBehaviour
     //接地判定
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "ground")
+        if (collision.gameObject.tag == "ground")
         {
             air = false;
             m_jumpcount = 0;
+            m_anim.SetBool("Jump", false);//待機アニメーションに遷移
+            
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "ground")
+        {
+            air = true;
+            m_anim.SetBool("Jump", true);//ジャンプアニメーションに遷移
         }
     }
 
