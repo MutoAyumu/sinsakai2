@@ -58,9 +58,9 @@ public class EnemyHealth : MonoBehaviour
     void Tracking()
     {
         Vector2 playerPos = m_target.position;
-        Vector2 enemyPos = transform.position;
-        Vector2 force = (playerPos - enemyPos) * speed;
-        m_rb.AddForce(force, ForceMode2D.Force);
+        Vector2 enemyPos = this.transform.position;
+        Vector2 force = (playerPos - enemyPos).normalized * speed;
+        m_rb.velocity = new Vector2(force.x,force.y);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -72,15 +72,23 @@ public class EnemyHealth : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        join = false;
+        if (collision.gameObject.tag == "Player")
+        {
+            join = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (join == true)
+        if(join == true)
         {
             Tracking();
+        }
+
+        if(join == false)
+        {
+            m_rb.velocity = new Vector2(0, 0);
         }
     }
 }

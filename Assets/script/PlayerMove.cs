@@ -36,28 +36,30 @@ public class PlayerMove : MonoBehaviour
     {
 
         //接地時の移動
-        if (Input.GetButton("Horizontal"))
+        //if (Input.GetButton("Horizontal"))
+        //{
+        if (air == false)//
         {
-            if (air == false)//
-            {
-                m_anim.SetBool("horizontal", true);
-            }
-
-            if (air != false)
-            {
-                m_anim.SetBool("horizontal", false);
-            }
-
-            if (m_h > 0)
-            {
-                m_rb.velocity = new Vector2(m_movepower * m_h, m_rb.velocity.y);
-            }
-            else
-            {
-                m_rb.velocity = new Vector2(m_movepower * m_h, m_rb.velocity.y);
-            }
+            m_anim.SetBool("horizontal", true);
         }
-        else
+
+        if (air != false)
+        {
+            m_anim.SetBool("horizontal", false);
+        }
+
+        //    if (m_h > 0)
+        //    {
+        //        Debug.Log("q");
+        m_rb.velocity = new Vector2(m_movepower * m_h, m_rb.velocity.y);
+        //    }
+        //    else
+        //    {
+        //        m_rb.velocity = new Vector2(m_movepower * m_h, m_rb.velocity.y);
+        //        Debug.Log("q");
+        //    }
+        //}
+        if(m_h == 0)
         {
             m_anim.SetBool("horizontal", false);
         }
@@ -79,6 +81,12 @@ public class PlayerMove : MonoBehaviour
             m_rb.velocity = new Vector2(m_rb.velocity.x, m_jumppower);
             m_jumpcount++;
         }
+
+        //攻撃
+        if(Input.GetButtonDown("Fire1"))
+        {
+
+        }
     }
 
     //接地判定
@@ -89,7 +97,7 @@ public class PlayerMove : MonoBehaviour
             air = false;
             m_jumpcount = 0;
             m_anim.SetBool("Jump", false);//待機アニメーションに遷移
-            
+
         }
     }
 
