@@ -13,13 +13,13 @@ public class GrapplingGun : MonoBehaviour
     //public Camera m_camera;
 
     [Header("Transform Refrences:")]
-    public Transform gunHolder;
+    //public Transform gunHolder;
     public Transform gunPivot;
     public Transform firePoint;
 
-    [Header("Rotation:")]
-    [SerializeField] private bool rotateOverTime = true;
-    [Range(0, 80)] [SerializeField] private float rotationSpeed = 4;
+    //[Header("Rotation:")]
+    //[SerializeField] private bool rotateOverTime = true;
+    //[Range(0, 80)] [SerializeField] private float rotationSpeed = 4;
 
     [Header("Distance:")]
     [SerializeField] private bool hasMaxDistance = true;
@@ -99,7 +99,7 @@ public class GrapplingGun : MonoBehaviour
         {
             grappleRope.enabled = false;
             m_springJoint2D.enabled = false;
-            ballRigidbody.gravityScale = m_rb;
+            //ballRigidbody.gravityScale = m_rb;
             m_grapplePoint.gameObject.SetActive(false);
         }
         //else
@@ -172,7 +172,8 @@ public class GrapplingGun : MonoBehaviour
                 m_springJoint2D.distance = 0;
                 m_springJoint2D.frequency = launchSpeed;
                 m_springJoint2D.enabled = true;
-                ballRigidbody.gravityScale = 0;
+                ballRigidbody.gravityScale = 1;
+                ballRigidbody.drag = 0;
             }
         }
     }

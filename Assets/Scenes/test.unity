@@ -287,11 +287,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce2fa0aece62054f85917297d2cc13e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Wirepos: {x: 0, y: 0}
-  maxdir: 5
-  m_grappableLayer:
+  m_grappleRope: {fileID: 0}
+  m_playermove: {fileID: 0}
+  m_grappleLayer:
     serializedVersion: 2
     m_Bits: 0
+  m_gunpoint: {fileID: 0}
+  m_firepoint: {fileID: 0}
+  m_hasMaxDistance: 1
+  m_MaxDistance: 4
+  m_lanchToPoint: 1
+  Launch_Type: 0
+  m_launchSpeed: 5
+  autoCongifureDistance: 0
+  targetDistance: 3
+  targetFrequency: 3
+  m_ropeLength: 5
+  m_grapplePoint: {fileID: 0}
+  m_hitPoint: {x: 0, y: 0}
+  m_distanceVector: {x: 0, y: 0}
+  m_rb: {fileID: 0}
+  m_springJoint2D: {fileID: 0}
 --- !u!114 &648570923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,7 +371,7 @@ GameObject:
   - component: {fileID: 777719902}
   m_Layer: 9
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -794,7 +810,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1533854774}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7, y: 1.41, z: 0}
+  m_LocalPosition: {x: -0.7, y: 4.86, z: 0}
   m_LocalScale: {x: 2.1210465, y: 0.17137, z: 0.17137}
   m_Children: []
   m_Father: {fileID: 0}
@@ -807,15 +823,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1635236709, guid: ea6b2f5904be59944b09e319db9a15b1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1635236710, guid: ea6b2f5904be59944b09e319db9a15b1, type: 3}
       propertyPath: slider
       value: 
       objectReference: {fileID: 5803032996797993891, guid: 28fc65a5606ad3b48bee82756e5df5d2,
         type: 3}
     - target: {fileID: 1635236711, guid: ea6b2f5904be59944b09e319db9a15b1, type: 3}
-      propertyPath: m_movepower
-      value: 5
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1635236711, guid: ea6b2f5904be59944b09e319db9a15b1, type: 3}
+      propertyPath: m_jumppower
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1635236711, guid: ea6b2f5904be59944b09e319db9a15b1, type: 3}
+      propertyPath: m_movepower
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1635236711, guid: ea6b2f5904be59944b09e319db9a15b1, type: 3}
+      propertyPath: m_grappleRope
+      value: 
+      objectReference: {fileID: 2134389408}
     - target: {fileID: 4933766961596350400, guid: ea6b2f5904be59944b09e319db9a15b1,
         type: 3}
       propertyPath: m_RootOrder
@@ -898,8 +930,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4933766961596350461, guid: ea6b2f5904be59944b09e319db9a15b1,
         type: 3}
+      propertyPath: m_LinearDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4933766961596350461, guid: ea6b2f5904be59944b09e319db9a15b1,
+        type: 3}
       propertyPath: m_GravityScale
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea6b2f5904be59944b09e319db9a15b1, type: 3}
@@ -909,6 +946,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1586956521}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1610816996 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1635236711, guid: ea6b2f5904be59944b09e319db9a15b1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1586956521}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610816995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb47348480f7bb409e5494a424fba81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &1610817003 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 4933766961596350461, guid: ea6b2f5904be59944b09e319db9a15b1,
@@ -936,7 +985,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 3.3730068, y: -2.9706302}
+  m_ConnectedAnchor: {x: 1.9409674, y: -2.9808993}
   m_AutoConfigureDistance: 0
   m_Distance: 0.005
   m_DampingRatio: 1
@@ -963,6 +1012,11 @@ PrefabInstance:
       propertyPath: m_camera
       value: 
       objectReference: {fileID: 1063353261}
+    - target: {fileID: 8311849701251427137, guid: b5b21cff60debb441ad598bd945b3d09,
+        type: 3}
+      propertyPath: Launch_Type
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8311849701251427137, guid: b5b21cff60debb441ad598bd945b3d09,
         type: 3}
       propertyPath: grappleToAll
@@ -1126,6 +1180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2101382966}
   - component: {fileID: 2101382967}
+  - component: {fileID: 2101382968}
   m_Layer: 0
   m_Name: GrapplingGun
   m_TagString: Untagged
@@ -1155,7 +1210,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2101382965}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae3bb4cca108bcf429357f1915312ef0, type: 3}
   m_Name: 
@@ -1164,11 +1219,8 @@ MonoBehaviour:
   m_grappableLayer:
     serializedVersion: 2
     m_Bits: 512
-  gunHolder: {fileID: 1610817005}
   gunPivot: {fileID: 1986474893}
   firePoint: {fileID: 412605979}
-  rotateOverTime: 0
-  rotationSpeed: 12.1
   hasMaxDistance: 0
   maxDistance: 20
   launchToPoint: 1
@@ -1177,12 +1229,45 @@ MonoBehaviour:
   autoCongifureDistance: 1
   targetDistance: 3
   targetFrequency: 1
-  m_ropeLength: 5
+  m_ropeLength: 10
   m_grapplePoint: {fileID: 897586819}
   m_springJoint2D: {fileID: 1610817006}
   grapplePoint: {x: 0, y: 0}
   DistanceVector: {x: 0, y: 0}
   ballRigidbody: {fileID: 1610817003}
+--- !u!114 &2101382968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101382965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce2fa0aece62054f85917297d2cc13e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_grappleRope: {fileID: 2134389408}
+  m_playermove: {fileID: 1610816996}
+  m_grappleLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  m_gunpoint: {fileID: 1986474893}
+  m_firepoint: {fileID: 412605979}
+  m_hasMaxDistance: 1
+  m_MaxDistance: 20
+  m_lanchToPoint: 1
+  Launch_Type: 0
+  m_launchSpeed: 1
+  autoCongifureDistance: 0
+  targetDistance: 3
+  targetFrequency: 3
+  m_ropeLength: 15
+  m_grapplePoint: {fileID: 897586819}
+  m_hitPoint: {x: 0, y: 0}
+  m_distanceVector: {x: 0, y: 0}
+  m_rb: {fileID: 1610817003}
+  m_springJoint2D: {fileID: 1610817006}
 --- !u!1 &2134389405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,9 +1409,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79a2685e495f88046a267aeed2a369d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grapplingGun: {fileID: 2101382967}
+  m_wireScript: {fileID: 2101382968}
   m_lineRenderer: {fileID: 2134389407}
-  percision: 120
+  percision: 20
   straightenLineSpeed: 10
   ropeAnimationCurve:
     serializedVersion: 2
@@ -1422,5 +1507,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ropeLaunchSpeedMultiplayer: 23.4
+  ropeLaunchSpeedMultiplayer: 7.7
   isGrappling: 0

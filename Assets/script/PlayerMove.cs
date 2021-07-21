@@ -22,6 +22,7 @@ public class PlayerMove : MonoBehaviour
     float m_scaleX;
 
     Rigidbody2D m_rb = default;
+    float m_drag;
 
     //アニメーション
     Animator m_anim = default;
@@ -30,14 +31,14 @@ public class PlayerMove : MonoBehaviour
     {
         m_rb = GetComponent<Rigidbody2D>();
         m_anim = GetComponent<Animator>();
+        //m_drag = m_rb.drag;
     }
 
     private void FixedUpdate()//決まった一定のタイミングで繰り返される
     {
 
         //接地時の移動
-        //if (Input.GetButton("Horizontal"))
-        //{
+        
         if (air == false)//
         {
             m_anim.SetBool("horizontal", true);
@@ -48,17 +49,8 @@ public class PlayerMove : MonoBehaviour
             m_anim.SetBool("horizontal", false);
         }
 
-        //    if (m_h > 0)
-        //    {
-        //        Debug.Log("q");
         m_rb.velocity = new Vector2(m_movepower * m_h, m_rb.velocity.y);
-        //    }
-        //    else
-        //    {
-        //        m_rb.velocity = new Vector2(m_movepower * m_h, m_rb.velocity.y);
-        //        Debug.Log("q");
-        //    }
-        //}
+        
         if(m_h == 0)
         {
             m_anim.SetBool("horizontal", false);
@@ -95,6 +87,7 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.tag == "ground")
         {
             air = false;
+            //m_rb.drag = m_drag;
             m_jumpcount = 0;
             m_anim.SetBool("Jump", false);//待機アニメーションに遷移
 
@@ -106,6 +99,7 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.tag == "ground")
         {
             air = true;
+            //m_rb.drag = 0;
             m_anim.SetBool("Jump", true);//ジャンプアニメーションに遷移
         }
     }

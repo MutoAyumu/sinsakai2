@@ -21,8 +21,4 @@ public class gamemanager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    //public void Instantiate()
-    //{
-    //    Instantiate(Respawn, new Vector2(-7, 1), Quaternion.identity);
-    //}
 }

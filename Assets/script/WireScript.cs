@@ -4,32 +4,123 @@ using UnityEngine;
 
 public class WireScript : MonoBehaviour
 {
-    float m_Rh;
-    float m_Rv;
-    public Vector2 Wirepos;
-    [SerializeField] float maxdir = 5;
-    [SerializeField] LayerMask m_grappableLayer = 0;
-    // Start is called before the first frame update
+    float m_h;
+    float m_v;
+    public GrappleRope m_grappleRope;
+    public PlayerMove m_playermove;//kokokiku
+    [SerializeField] LayerMask m_grappleLayer = default;
+
+    public Transform m_gunpoint;
+    public Transform m_firepoint;
+
+    [SerializeField] private bool m_hasMaxDistance = true;
+    [SerializeField] private float m_MaxDistance = 4;
+
+    [SerializeField] private bool m_lanchToPoint = true;
+    [SerializeField] private LaunchType Launch_Type = LaunchType.Physics_Launch;
+    [Range(0, 5)] [SerializeField] private float m_launchSpeed = 5;
+
+    [SerializeField] private bool autoCongifureDistance = false;
+    [SerializeField] private float targetDistance = 3;
+    [SerializeField] private float targetFrequency = 3;
+    [SerializeField] float m_ropeLength = 5;
+    [SerializeField] Transform m_grapplePoint = default;
+
+    [HideInInspector] public Vector2 m_hitPoint;
+    [HideInInspector] public Vector2 m_distanceVector;
+
+    public Rigidbody2D m_rb;
+    float m_GravityNow;
+
+    public SpringJoint2D m_springJoint2D;
+    PlayerMove Playermove;
+
+    private enum LaunchType
+    {
+        Physics_Launch,//kokokiku
+    }
     void Start()
     {
-        
+        m_grappleRope.enabled = false;
+        m_springJoint2D.enabled = false;
+        //Playermove = GameObject.Find("Playerbox").GetComponent<PlayerMove>();
+        //m_GravityNow = m_rb.gravityScale;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        m_Rh = Input.GetAxisRaw("Horizontal");
-        m_Rv = Input.GetAxisRaw("Vertical");
-        Vector2 m_pos = this.transform.position;
-        if(Input.GetButton("Fire1"))
-        {
-            RaycastHit2D m_hit = Physics2D.Raycast(m_pos, new Vector2(m_Rh, m_Rv), maxdir);
-            Debug.DrawRay(m_pos, new Vector2(m_Rh, m_Rv).normalized, Color.blue, 1);
-            if (m_hit.transform.gameObject.layer == m_grappableLayer)
-            {
+        m_h = Input.GetAxisRaw("Horizontal");
+        m_v = Input.GetAxisRaw("Vertical");
 
+        if(Input.GetButtonDown("Fire1"))
+        {
+            SetGrapplePoint();
+        }
+        else if(Input.GetButtonUp("Fire1"))
+        {
+            m_grappleRope.enabled = false;
+            m_springJoint2D.enabled = false;
+            m_grapplePoint.gameObject.SetActive(false);
+            m_playermove.enabled = true;
+            //m_rb.gravityScale = m_GravityNow;
+        }
+    }
+
+    void SetGrapplePoint()
+    {
+        if(Physics2D.Raycast(m_firepoint.position, new Vector2(m_h,m_v).normalized, m_ropeLength, m_grappleLayer))
+        {
+            RaycastHit2D m_hit = Physics2D.Raycast(m_firepoint.position, new Vector2(m_h, m_v).normalized, m_ropeLength, m_grappleLayer);
+            if((Vector2.Distance(m_hit.point, m_firepoint.position) <= m_MaxDistance) || !m_hasMaxDistance)
+            {
+                m_hitPoint = m_hit.point;
+                m_distanceVector = m_hitPoint - (Vector2)m_gunpoint.position;
+                m_grappleRope.enabled = true;
+                m_grapplePoint.gameObject.SetActive(true);
+                m_grapplePoint.position = m_hitPoint;
+                
             }
         }
-        
+    }
+
+    public void Grapple()
+    {
+        m_playermove.enabled = false;
+        if (!m_lanchToPoint && !autoCongifureDistance)
+        {
+            m_springJoint2D.distance = targetDistance;
+            m_springJoint2D.frequency = targetFrequency;
+        }
+        if(!m_lanchToPoint)
+        {
+            if(autoCongifureDistance)
+            {
+                m_springJoint2D.autoConfigureDistance = true;
+                m_springJoint2D.frequency = 0;
+            }
+            m_springJoint2D.connectedAnchor = m_hitPoint;
+            m_springJoint2D.enabled = true;
+        }
+
+        else
+        {
+            if(Launch_Type == LaunchType.Physics_Launch)
+            {
+                m_springJoint2D.connectedAnchor = m_hitPoint;
+                m_springJoint2D.distance = 0;
+                m_springJoint2D.frequency = m_launchSpeed;
+                m_springJoint2D.enabled = true;
+                //m_rb.gravityScale = 1;
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(m_hasMaxDistance)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(m_firepoint.position, m_MaxDistance);
+        }
     }
 }
