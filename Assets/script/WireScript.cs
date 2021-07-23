@@ -7,7 +7,9 @@ public class WireScript : MonoBehaviour
     float m_h;
     float m_v;
     public GrappleRope m_grappleRope;
-    public PlayerMove m_playermove;//kokokiku
+    public PlayerMove m_playermove;
+    Transform m_transform;
+    public Animator m_anim;
     [SerializeField] LayerMask m_grappleLayer = default;
 
     public Transform m_gunpoint;
@@ -29,10 +31,10 @@ public class WireScript : MonoBehaviour
     [HideInInspector] public Vector2 m_hitPoint;
     [HideInInspector] public Vector2 m_distanceVector;
 
-    public Rigidbody2D m_rb;
+    Rigidbody2D m_rb;
     float m_GravityNow;
 
-    public SpringJoint2D m_springJoint2D;
+    public  SpringJoint2D m_springJoint2D;
     PlayerMove Playermove;
 
     private enum LaunchType
@@ -52,16 +54,18 @@ public class WireScript : MonoBehaviour
         m_h = Input.GetAxisRaw("Horizontal");
         m_v = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetButtonDown("Fire1"))
+        if(Input.GetButtonDown("Fire2"))
         {
             SetGrapplePoint();
         }
-        else if(Input.GetButtonUp("Fire1"))
+        else if(Input.GetButtonUp("Fire2"))
         {
             m_grappleRope.enabled = false;
             m_springJoint2D.enabled = false;
             m_grapplePoint.gameObject.SetActive(false);
             m_playermove.enabled = true;
+            m_anim.SetBool("Wire", false);
+            //m_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             //m_rb.gravityScale = m_GravityNow;
         }
     }
@@ -70,6 +74,7 @@ public class WireScript : MonoBehaviour
     {
         if(Physics2D.Raycast(m_firepoint.position, new Vector2(m_h,m_v).normalized, m_ropeLength, m_grappleLayer))
         {
+            //m_rb.constraints = RigidbodyConstraints2D.FreezeAll;
             RaycastHit2D m_hit = Physics2D.Raycast(m_firepoint.position, new Vector2(m_h, m_v).normalized, m_ropeLength, m_grappleLayer);
             if((Vector2.Distance(m_hit.point, m_firepoint.position) <= m_MaxDistance) || !m_hasMaxDistance)
             {
@@ -78,14 +83,17 @@ public class WireScript : MonoBehaviour
                 m_grappleRope.enabled = true;
                 m_grapplePoint.gameObject.SetActive(true);
                 m_grapplePoint.position = m_hitPoint;
-                
+                m_anim.SetBool("Wire", true);
+                m_playermove.enabled = false;
             }
         }
     }
 
     public void Grapple()
     {
-        m_playermove.enabled = false;
+        //m_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        
+
         if (!m_lanchToPoint && !autoCongifureDistance)
         {
             m_springJoint2D.distance = targetDistance;

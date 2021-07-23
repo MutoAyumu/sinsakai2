@@ -86,11 +86,14 @@ public class PlayerMove : MonoBehaviour
     {
         if (collision.gameObject.tag == "ground")
         {
-            air = false;
+            
             //m_rb.drag = m_drag;
             m_jumpcount = 0;
-            m_anim.SetBool("Jump", false);//待機アニメーションに遷移
-
+            if (m_anim.GetBool("Wire") == false)
+            {
+                air = false;
+                m_anim.SetBool("Jump", false);//待機アニメーションに遷移
+            }
         }
     }
 
@@ -100,7 +103,10 @@ public class PlayerMove : MonoBehaviour
         {
             air = true;
             //m_rb.drag = 0;
-            m_anim.SetBool("Jump", true);//ジャンプアニメーションに遷移
+            if (m_anim.GetBool("Wire") == false)
+            {
+                m_anim.SetBool("Jump", true);
+            }//ジャンプアニメーションに遷移
         }
     }
 

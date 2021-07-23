@@ -21,7 +21,7 @@ public class GrappleRope : MonoBehaviour
 
     float moveTime = 0;
 
-    [SerializeField] public bool isGrappling = false;
+    [SerializeField] bool isGrappling = false;
 
     bool drawLine = true;
     bool straightLine = true;
