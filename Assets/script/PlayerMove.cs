@@ -7,6 +7,7 @@ public class PlayerMove : MonoBehaviour
     //動き
     [SerializeField] float m_movepower = 1f;
     [SerializeField] float m_jumppower = 1f;
+    [SerializeField] float m_dashSpeed = 2f;
 
     //反転
     [SerializeField] bool m_flipX = false;
@@ -24,8 +25,13 @@ public class PlayerMove : MonoBehaviour
     Rigidbody2D m_rb = default;
     float m_drag;
 
+    float m_timer = 0f;
+    [SerializeField] float m_setTime = 3f;
+
     //アニメーション
     Animator m_anim = default;
+
+    [HideInInspector]public EnemyHealth m_EnemyHealth;
 
     void Start()
     {
@@ -74,27 +80,29 @@ public class PlayerMove : MonoBehaviour
             m_jumpcount++;
         }
 
-        //攻撃
-        if(Input.GetButtonDown("Fire1"))
-        {
+        m_timer += Time.deltaTime;
 
+        //攻撃
+        if (Input.GetButtonDown("Fire1") && m_timer >= m_setTime)
+        {
+            m_anim.SetBool("NormalAttack", true);
+            m_timer = 0;
         }
+    }
+
+    private void AttackFin()
+    {
+        m_anim.SetBool("NormalAttack", false);
     }
 
     //接地判定
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "ground")
+        if(collision.gameObject.tag == "ground")
         {
-            
-            //m_rb.drag = m_drag;
             m_jumpcount = 0;
-            if (m_anim.GetBool("Wire") == false)
-            {
-                air = false;
-                m_anim.SetBool("Jump", false);//待機アニメーションに遷移
-            }
         }
+        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -107,6 +115,31 @@ public class PlayerMove : MonoBehaviour
             {
                 m_anim.SetBool("Jump", true);
             }//ジャンプアニメーションに遷移
+        }
+
+        if(collision.gameObject.tag == "Enemy")
+        {
+            m_EnemyHealth = null;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            m_EnemyHealth = collision.GetComponent<EnemyHealth>();
+        }
+
+        if (collision.gameObject.tag == "ground")
+        {
+
+            //m_rb.drag = m_drag;
+            
+            if (m_anim.GetBool("Wire") == false)
+            {
+                air = false;
+                m_anim.SetBool("Jump", false);//待機アニメーションに遷移
+            }
         }
     }
 

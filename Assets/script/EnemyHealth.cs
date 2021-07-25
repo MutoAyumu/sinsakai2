@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,89 +7,42 @@ using UnityEngine.UI;
 public class EnemyHealth : MonoBehaviour
 {
 
-    [SerializeField] public int max_hp = 1;
-    public int currenHp;
-    int maxvalue;
-
-    [SerializeField] public int _damage = 1;
-
-    public Slider slider;
-
-    public Transform m_target;
-    [SerializeField] float speed;
-    [SerializeField] GameObject tgp;
-    bool join = false;
-    Rigidbody2D m_rb;
+    [SerializeField] int m_maxHp;
+    int m_currentHp;
+    [SerializeField] Slider m_slider;
+    int m_maxValue;
 
     private void Start()
     {
-        maxvalue = (int)slider.maxValue;
-        slider.value = maxvalue;
-        currenHp = max_hp;
-
-        m_rb = GetComponent<Rigidbody2D>();
-        
+        m_maxValue = (int)m_slider.maxValue;
+        m_currentHp = m_maxHp;
+        m_slider.value = 1f;
+        m_currentHp = m_maxHp;
     }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Player")
+    //    {
+    //        var hit = collision.gameObject;
+    //        var hp = hit.GetComponent<PlayerHealth>();
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        var hit = collision.gameObject;
-        var health = hit.GetComponent<PlayerHealth>();
-
-        if (health != null)
-        {
-            health.TakeDamage(_damage);
-        }
-    }
-
-
+    //        if (hp != null)
+    //        {
+    //            hp.TakeDamage(m_damage);
+    //        }
+    //    }
+    //}
     public void TakeDamage(int damage)
     {
-        currenHp -= damage;
-        slider.value -= damage;
-
-        if (currenHp <= 0)
+        m_currentHp -= damage;
+        
+        if(m_currentHp > 0)
         {
-            currenHp = 0;
-
-            Destroy(gameObject);
+            DOVirtual.Float(m_slider.value, (float)m_currentHp / m_maxHp, 0.5f, value => m_slider.value = value);
         }
-    }
-
-    void Tracking()
-    {
-        Vector2 playerPos = m_target.position;
-        Vector2 enemyPos = this.transform.position;
-        Vector2 force = (playerPos - enemyPos).normalized * speed;
-        m_rb.velocity = new Vector2(force.x,force.y);
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
+        else
         {
-            join = true;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            join = false;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(join == true)
-        {
-            Tracking();
-        }
-
-        if(join == false)
-        {
-            m_rb.velocity = new Vector2(0, 0);
+            Destroy(this.gameObject);
         }
     }
 }

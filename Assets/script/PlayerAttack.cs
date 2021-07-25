@@ -4,24 +4,14 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [SerializeField]PlayerMove m_enemy;
+    [SerializeField] int m_damage = 1;
 
-    [SerializeField] public int _damage = 1;
-    private void OnTriggerEnter2D(Collider2D other)
+    void MainPlayerAttack()
     {
-        var hit = other.gameObject;
-        var hp = hit.GetComponent<EnemyHealth>();
-        Debug.Log("a");
-        if (other.gameObject.tag == "enemy")
+        if(m_enemy.m_EnemyHealth != null)
         {
-            //Destroy(other.gameObject);
-            hp.TakeDamage(_damage);
-            //Destroy(this.gameObject, 0.25f);
+            m_enemy.m_EnemyHealth.TakeDamage(m_damage);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Destroy(this.gameObject, 0.25f);
     }
 }

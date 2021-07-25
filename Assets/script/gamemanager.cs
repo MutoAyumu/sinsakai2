@@ -5,20 +5,24 @@ using UnityEngine;
 public class gamemanager : MonoBehaviour
 {
     public static gamemanager instance = null;
-    [SerializeField] GameObject Respawn = default;
     public int lifeNum;
-    public int objectNum;
+    public int m_playerHealth;
+    public int m_currenthp;
+    [SerializeField] public bool m_godmode = false;
 
     private void Awake()
     {
-        if (instance == null)
+        m_currenthp = m_playerHealth;
+
+        if (instance != null)
         {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            Destroy(this.gameObject);
+           
         }
         else
         {
-            Destroy(this.gameObject);
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
     }
 }
