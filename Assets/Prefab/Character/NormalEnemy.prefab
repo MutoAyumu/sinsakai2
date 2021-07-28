@@ -418,7 +418,7 @@ MonoBehaviour:
   m_rayForGround: {x: 3, y: -3}
   m_groundLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
   m_rayForWall: {x: 3, y: 0}
   m_wallLayer:
     serializedVersion: 2

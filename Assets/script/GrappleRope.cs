@@ -114,7 +114,7 @@ public class GrappleRope : MonoBehaviour
 
             m_lineRenderer.SetPosition(i, currentPosition);
             
-            if (i == 119)
+            if (i == 19)
             {
                 Debug.Log($"current: {currentPosition.x}, target: {targetPosition.x}");
             }
