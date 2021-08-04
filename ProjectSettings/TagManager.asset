@@ -7,6 +7,8 @@ TagManager:
   - PlayerAttack
   - ground
   - Enemy
+  - Spiderweb
+  - Poisoned
   layers:
   - Default
   - TransparentFX

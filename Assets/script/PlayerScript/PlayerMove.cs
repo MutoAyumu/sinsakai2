@@ -4,8 +4,8 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     //動き
-    [SerializeField] float m_movepower = 1f;
-    [SerializeField] float m_jumppower = 1f;
+    [SerializeField] public float m_movepower = 1f;
+    [SerializeField] public float m_jumppower = 1f;
     //反転
     [SerializeField] bool m_flipX = false;
 
@@ -128,7 +128,7 @@ public class PlayerMove : MonoBehaviour
     /// <summary>チャージジャンプの動き</summary>
     void UpdateJump()
     {
-        Debug.Log($"input:{chargedJumpInput}");
+        //Debug.Log($"input:{chargedJumpInput}");
         // じゃんぷ中かつリミットに達していなかったら
         if (isJumping && chargedJumpInput < jumpChargeLimit)
         {

@@ -7,7 +7,7 @@ public class gamemanager : MonoBehaviour
     public static gamemanager instance = null;
     public int lifeNum;
     public int m_playerHealth;
-    public int m_currenthp;
+    public float m_currenthp;
     [SerializeField] public bool m_godmode = false;
 
     private void Awake()
