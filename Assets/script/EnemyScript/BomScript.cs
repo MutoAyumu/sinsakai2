@@ -9,7 +9,7 @@ public class BomScript : MonoBehaviour
     Animator m_anim;
     [SerializeField] float m_speed = 1f;
     float m_timer = 0f;
-    [SerializeField] float m_limitTime = 1f;
+    float m_limitTime;
     [SerializeField] int m_damage = 1;
     PlayerHealth player;
     Vector2 PlayerPos;
@@ -17,6 +17,7 @@ public class BomScript : MonoBehaviour
     [SerializeField] bool m_flipX = false;
     void Start()
     {
+        m_limitTime = Random.Range(5, 10);
         m_anim = GetComponent<Animator>();
         m_rb = GetComponent<Rigidbody2D>();
     }

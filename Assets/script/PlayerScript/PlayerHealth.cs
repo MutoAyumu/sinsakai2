@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
 
     gamemanager Gmanager;
 
-    Transform ResPos = null;
+    Transform ResPos = default;
 
     PlayerState m_state = PlayerState.Normal;
     [SerializeField] PlayerMove m_player;
@@ -27,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
     float m_damage;
     bool m_poisoned = false;
     bool m_spiderweb = false;
+    bool m_confusion = false;
 
     void Start()
     {
@@ -82,6 +83,7 @@ public class PlayerHealth : MonoBehaviour
         Normal,
         Spiderweb,
         Poisoned,
+        Confusion,
     }
     IEnumerator StateChangeWeb()
     {
@@ -106,6 +108,14 @@ public class PlayerHealth : MonoBehaviour
         m_poisoned = false;
         m_state = PlayerState.Normal;
     }
+    IEnumerator StartChangeConfusion()
+    {
+        m_player.m_playerDirection = -1f;
+        yield return new WaitForSeconds(5f);
+        m_confusion = false;
+        m_player.m_playerDirection = 1f;
+        m_state = PlayerState.Normal;
+    }
     void Update()
     {
         switch (m_state)
@@ -117,6 +127,9 @@ public class PlayerHealth : MonoBehaviour
                 break;
             case PlayerState.Spiderweb:
                 m_spiderweb = true;
+                break;
+            case PlayerState.Confusion:
+                m_confusion = true;
                 break;
             default:
                 Debug.LogError("不正な状態");
@@ -133,6 +146,10 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine("StateChangeWeb");
 
         }
+        if(m_confusion)
+        {
+            StartCoroutine("StartChangeConfusion");
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -143,6 +160,10 @@ public class PlayerHealth : MonoBehaviour
         if (collision.gameObject.tag == "Poisoned")
         {
             m_state = PlayerState.Poisoned;
+        }
+        if(collision.gameObject.tag == "Confusion")
+        {
+            m_state = PlayerState.Confusion;
         }
     }
 }

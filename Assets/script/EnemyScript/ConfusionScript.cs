@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpiderwebScript : MonoBehaviour
+public class ConfusionScript : MonoBehaviour
 {
     Rigidbody2D m_rb;
     Animator m_anim;
     [SerializeField] float m_speed = 1f;
-    float m_limitTime;
     float m_timer = 0;
+    float m_limitTime;
     Vector2 PlayerPos;
     Vector2 Move;
     [SerializeField] bool m_flipX = false;
@@ -31,10 +31,10 @@ public class SpiderwebScript : MonoBehaviour
     }
 
     void UpdateMove()
-    {
+    {      
         Vector2 EnemyPos = this.transform.position;
         Move = (PlayerPos - EnemyPos);
-        m_rb.velocity = new Vector2(Move.x, Move.y).normalized * m_speed;
+        m_rb.velocity = new Vector2(Move.x, Move.y).normalized * m_speed;       
     }
 
     void UpdateTime()
@@ -43,7 +43,7 @@ public class SpiderwebScript : MonoBehaviour
 
         if (m_timer > m_limitTime)
         {
-            m_anim.Play("WebFade");
+            m_anim.Play("ConfusionFade");
         }
     }
 

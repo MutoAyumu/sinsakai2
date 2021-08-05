@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
     //動き
     [SerializeField] public float m_movepower = 1f;
     [SerializeField] public float m_jumppower = 1f;
+    [HideInInspector] public float m_playerDirection = 1f;
     //反転
     [SerializeField] bool m_flipX = false;
 
@@ -26,6 +27,7 @@ public class PlayerMove : MonoBehaviour
     //アニメーション
     Animator m_anim = default;
     [HideInInspector] public EnemyHealth m_EnemyHealth;
+
     void Start()
     {
         m_rb = GetComponent<Rigidbody2D>();
@@ -68,6 +70,7 @@ public class PlayerMove : MonoBehaviour
         //入力
         m_h = Input.GetAxisRaw("Horizontal");
         m_v = Input.GetAxisRaw("Vertical");
+
         //反転
         if (m_flipX)
         {
@@ -78,7 +81,7 @@ public class PlayerMove : MonoBehaviour
     void UpdateMove()
     {
         //移動
-        m_rb.velocity = new Vector2(m_movepower * m_h, m_rb.velocity.y);
+        m_rb.velocity = new Vector2(m_movepower * m_h * m_playerDirection, m_rb.velocity.y);
         //ジャンプ中じゃなければ
         if (!isAir)
         {
@@ -184,11 +187,11 @@ public class PlayerMove : MonoBehaviour
         m_scaleX = this.transform.localScale.x;
         if (horizontal > 0)
         {
-            this.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            this.transform.localScale = new Vector3(m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
         }
         else if (horizontal < 0)
         {
-            this.transform.localScale = new Vector3(-1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            this.transform.localScale = new Vector3(-1 * m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
         }
     }
 }

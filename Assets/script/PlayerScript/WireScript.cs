@@ -72,10 +72,10 @@ public class WireScript : MonoBehaviour
 
     void SetGrapplePoint()
     {
-        if(Physics2D.Raycast(m_firepoint.position, new Vector2(m_h,m_v).normalized, m_ropeLength, m_grappleLayer))
+        if(Physics2D.Raycast(m_firepoint.position, new Vector2(m_h * m_playermove.m_playerDirection ,m_v).normalized, m_ropeLength, m_grappleLayer))
         {
             //m_rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            RaycastHit2D m_hit = Physics2D.Raycast(m_firepoint.position, new Vector2(m_h, m_v).normalized, m_ropeLength, m_grappleLayer);
+            RaycastHit2D m_hit = Physics2D.Raycast(m_firepoint.position, new Vector2(m_h * m_playermove.m_playerDirection , m_v).normalized, m_ropeLength, m_grappleLayer);
             if((Vector2.Distance(m_hit.point, m_firepoint.position) <= m_MaxDistance) || !m_hasMaxDistance)
             {
                 m_hitPoint = m_hit.point;

@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Spiderweb
   - Poisoned
+  - Confusion
   layers:
   - Default
   - TransparentFX

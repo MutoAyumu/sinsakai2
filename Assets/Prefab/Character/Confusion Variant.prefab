@@ -1,20 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &1669117318
+--- !u!114 &1761913478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2343300637555778843}
+  m_GameObject: {fileID: 318320815847791873}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5905d423e3e02e441aeaa6552e1a5e64, type: 3}
+  m_Script: {fileID: 11500000, guid: faf15813d1504384eb12c48a7c7ac796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_speed: 3
+  m_limitTime: 5
   m_flipX: 1
---- !u!1001 &818080707572348185
+--- !u!1001 &3437826009003330819
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -29,12 +30,12 @@ PrefabInstance:
     - target: {fileID: 2285715002360160817, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 57.5
+      value: 7.62
       objectReference: {fileID: 0}
     - target: {fileID: 2285715002360160817, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.2
+      value: 4.71
       objectReference: {fileID: 0}
     - target: {fileID: 2285715002360160817, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
@@ -79,17 +80,17 @@ PrefabInstance:
     - target: {fileID: 3161381330483564546, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
       propertyPath: m_Name
-      value: Spiderweb
+      value: Confusion
       objectReference: {fileID: 0}
     - target: {fileID: 3161381330483564546, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
       propertyPath: m_TagString
-      value: Spiderweb
+      value: Confusion
       objectReference: {fileID: 0}
     - target: {fileID: 4698867635604406189, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: -0.0035951138
+      value: -0.0035989285
       objectReference: {fileID: 0}
     - target: {fileID: 4698867635604406189, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
@@ -99,22 +100,17 @@ PrefabInstance:
     - target: {fileID: 4856356362894506192, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.38679248
+      value: 0.062077243
       objectReference: {fileID: 0}
     - target: {fileID: 4856356362894506192, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.3160913
+      value: 0.8773585
       objectReference: {fileID: 0}
     - target: {fileID: 4856356362894506192, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.3010413
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184483638641529694, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 4
+      value: 0.8464901
       objectReference: {fileID: 0}
     - target: {fileID: 7859928297920094701, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
@@ -124,14 +120,14 @@ PrefabInstance:
     - target: {fileID: 7859928297920094701, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.001955986
+      value: 0.0019598007
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 985800238, guid: 5969a3fec1ff1bf4aa4f762cdef817b1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5969a3fec1ff1bf4aa4f762cdef817b1, type: 3}
---- !u!1 &2343300637555778843 stripped
+--- !u!1 &318320815847791873 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3161381330483564546, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
     type: 3}
-  m_PrefabInstance: {fileID: 818080707572348185}
+  m_PrefabInstance: {fileID: 3437826009003330819}
   m_PrefabAsset: {fileID: 0}
