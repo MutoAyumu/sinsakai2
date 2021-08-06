@@ -6,16 +6,25 @@ public class BossEnemyMove : MonoBehaviour
 {
     [SerializeField] EnemyHealth m_enemy;
     [SerializeField] GameObject[] m_children = default;
-    [SerializeField] Transform instancePos = default;
+    [SerializeField] GameObject instancePos = default;
+    [SerializeField] GameObject m_originPos = default;
+    [SerializeField] Vector2 m_wall = Vector2.zero;
+    [SerializeField] LayerMask m_layerMask = 0;
+    [SerializeField] bool m_flipX = false;
+    [SerializeField]float m_speed = 3f;
 
     Rigidbody2D m_rb;
     Animator m_anim;
 
     float m_hpJudge;
     float m_timer = 0;
-    bool m_attack = false;
-    bool m_ins = false;
-    int instance = 5;
+    int m_instance;
+    int m_count = 0;
+    bool m_firstMove = true;
+    bool m_randomIns = false;
+
+
+    Vector2 m_dir = Vector2.zero;
     void Start()
     {
         m_rb = GetComponent<Rigidbody2D>();
@@ -25,52 +34,94 @@ public class BossEnemyMove : MonoBehaviour
 
     void Update()
     {
-        AttackPhase();
+        m_timer += Time.deltaTime;
+
+        if (m_enemy.m_currentHp > 0.6 * m_hpJudge)
+        {
+            StartAttackMove();
+        }
+        else if (m_enemy.m_currentHp > 0.3 * m_hpJudge)
+        {
+
+        }
+        else
+        {
+
+        }
+
+        if (m_flipX)
+        {
+            FlipX(m_wall.x);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-         //開始のアニメーションを流してプレイヤーの動きを止める
+            //開始のアニメーションを流してプレイヤーの動きを止める
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             //アニメーションが終わったらstartPhaseを動かす
 
         }
     }
-    void AttackPhase()
-    {       
-        //体力が三分の二以上の時
-        if(m_enemy.m_currentHp > (0.6f / m_hpJudge))
+    void StartPhase()
+    {
+        
+        if (!m_randomIns)
         {
-            if (!m_attack)
+            m_instance = Random.Range(3, 5);
+            m_randomIns = true;
+        }
+
+        if (m_count < m_instance)
+        {
+            for (int i = 0; i < m_instance; i++)
             {
-
-
-                for (int i = 0; i < instance; i++)
+                if (m_timer > 1)
                 {
-                    if (m_timer > 2)
-                    {
-                        m_timer = 0;
-                        int instanceName = Random.Range(0, m_children.Length - 1);
-                        Instantiate(m_children[instanceName], instancePos);
-                    }
+                    int instanceName = Random.Range(0, m_children.Length);
+                    Instantiate(m_children[instanceName], instancePos.transform.position, Quaternion.identity);
+                    m_timer = 0;
+                    m_count++;
                 }
             }
         }
-        //体力が三分の一以上の時
-        else if (m_enemy.m_currentHp > (m_hpJudge / 0.3f))
-        {
+    }
+    void StartAttackMove()
+    {
+        Debug.DrawRay(m_originPos.transform.position, m_wall, Color.green);
+        RaycastHit2D hit = Physics2D.Raycast(m_originPos.transform.position, m_wall, m_wall.magnitude, m_layerMask);
 
+        if (hit.collider)
+        {
+            m_firstMove = false;
+            m_wall = new Vector2(m_wall.x * -1, m_wall.y);
+            m_rb.velocity = Vector2.zero;
         }
-        //それ以外
-        else
-        {
 
+        if (m_firstMove)
+        {
+            StartPhase();
+            m_dir = m_wall * m_speed;
+            m_dir.y = m_rb.velocity.y;
+            m_rb.velocity = m_dir;
+        }
+    }
+    void FlipX(float horizontal)
+    {
+
+        if (horizontal < 0)
+        {
+            this.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+        }
+        else if (horizontal > 0)
+        {
+            this.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x) * -1, this.transform.localScale.y, this.transform.localScale.z);
         }
     }
 }
