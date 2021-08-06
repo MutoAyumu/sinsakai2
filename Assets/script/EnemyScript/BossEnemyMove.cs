@@ -11,7 +11,8 @@ public class BossEnemyMove : MonoBehaviour
     [SerializeField] Vector2 m_wall = Vector2.zero;
     [SerializeField] LayerMask m_layerMask = 0;
     [SerializeField] bool m_flipX = false;
-    [SerializeField]float m_speed = 3f;
+    [SerializeField] float m_speed = 3f;
+    [SerializeField] float m_instanceTime = 1f;
 
     Rigidbody2D m_rb;
     Animator m_anim;
@@ -39,6 +40,7 @@ public class BossEnemyMove : MonoBehaviour
         if (m_enemy.m_currentHp > 0.6 * m_hpJudge)
         {
             StartAttackMove();
+
         }
         else if (m_enemy.m_currentHp > 0.3 * m_hpJudge)
         {
@@ -71,10 +73,11 @@ public class BossEnemyMove : MonoBehaviour
     }
     void StartPhase()
     {
-        
+
         if (!m_randomIns)
         {
             m_instance = Random.Range(3, 5);
+            m_count = 0;
             m_randomIns = true;
         }
 
@@ -82,7 +85,7 @@ public class BossEnemyMove : MonoBehaviour
         {
             for (int i = 0; i < m_instance; i++)
             {
-                if (m_timer > 1)
+                if (m_timer > m_instanceTime)
                 {
                     int instanceName = Random.Range(0, m_children.Length);
                     Instantiate(m_children[instanceName], instancePos.transform.position, Quaternion.identity);
@@ -92,6 +95,7 @@ public class BossEnemyMove : MonoBehaviour
             }
         }
     }
+
     void StartAttackMove()
     {
         Debug.DrawRay(m_originPos.transform.position, m_wall, Color.green);
@@ -102,6 +106,7 @@ public class BossEnemyMove : MonoBehaviour
             m_firstMove = false;
             m_wall = new Vector2(m_wall.x * -1, m_wall.y);
             m_rb.velocity = Vector2.zero;
+            StartCoroutine("FirstReset");
         }
 
         if (m_firstMove)
@@ -111,6 +116,13 @@ public class BossEnemyMove : MonoBehaviour
             m_dir.y = m_rb.velocity.y;
             m_rb.velocity = m_dir;
         }
+    }
+
+    IEnumerator FirstReset()
+    {
+        yield return new WaitForSeconds(5f);
+        m_randomIns = false;
+        m_firstMove = true;
     }
     void FlipX(float horizontal)
     {

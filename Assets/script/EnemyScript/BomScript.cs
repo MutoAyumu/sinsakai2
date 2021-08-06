@@ -27,6 +27,8 @@ public class BomScript : MonoBehaviour
         UpdateMove();
         UpdateTimer();
 
+        PlayerPos = GameObject.Find("Playerbox").transform.position;
+
         if(m_flipX)
         {
             FlipX(Move.x);
@@ -66,7 +68,6 @@ public class BomScript : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             player = collision.GetComponent<PlayerHealth>();
-            PlayerPos = collision.gameObject.transform.position;
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)

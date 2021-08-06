@@ -24,6 +24,8 @@ public class SpiderwebScript : MonoBehaviour
         UpdateMove();
         UpdateTime();
 
+        PlayerPos = GameObject.Find("Playerbox").transform.position;
+
         if (m_flipX)
         {
             FlipX(Move.x);
@@ -52,13 +54,6 @@ public class SpiderwebScript : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            PlayerPos = collision.gameObject.transform.position;
-        }
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
