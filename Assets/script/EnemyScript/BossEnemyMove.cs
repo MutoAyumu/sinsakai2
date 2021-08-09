@@ -12,13 +12,19 @@ public class BossEnemyMove : MonoBehaviour
     [SerializeField] LayerMask m_layerMask = 0;
     [SerializeField] bool m_flipX = false;
     [SerializeField] float m_speed = 3f;
+    [SerializeField] float m_secondSpeed = 10f;
     [SerializeField] float m_instanceTime = 1f;
+    [SerializeField] int m_damage = 1;
+    [SerializeField] GameObject m_beamObject = default;
 
+    Vector2 m_playerPos;
     Rigidbody2D m_rb;
     Animator m_anim;
+    Vector2 m_enemyPos = default;
 
     float m_hpJudge;
     float m_timer = 0;
+    float m_secondTimer = 0;
     int m_instance;
     int m_count = 0;
     bool m_firstMove = true;
@@ -31,31 +37,24 @@ public class BossEnemyMove : MonoBehaviour
         m_rb = GetComponent<Rigidbody2D>();
         m_anim = GetComponent<Animator>();
         m_hpJudge = m_enemy.m_currentHp;
+
     }
 
     void Update()
     {
-        m_timer += Time.deltaTime;
+        
 
-        if (m_enemy.m_currentHp > 0.6 * m_hpJudge)
+        if (m_enemy.m_currentHp > 0.5 * m_hpJudge)
         {
-            StartAttackMove();
-
-        }
-        else if (m_enemy.m_currentHp > 0.3 * m_hpJudge)
-        {
+            FirstAttackMove();
 
         }
         else
         {
-
-        }
-
-        if (m_flipX)
-        {
-            FlipX(m_wall.x);
+            SecondAttackMove();
         }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -63,6 +62,7 @@ public class BossEnemyMove : MonoBehaviour
             //開始のアニメーションを流してプレイヤーの動きを止める
         }
     }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -71,8 +71,19 @@ public class BossEnemyMove : MonoBehaviour
 
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            var Player = collision.gameObject.GetComponent<PlayerHealth>();
+            Player.TakeDamage(m_damage);
+        }
+    }
+
     void StartPhase()
     {
+        m_timer += Time.deltaTime;
 
         if (!m_randomIns)
         {
@@ -96,7 +107,7 @@ public class BossEnemyMove : MonoBehaviour
         }
     }
 
-    void StartAttackMove()
+    void FirstAttackMove()
     {
         Debug.DrawRay(m_originPos.transform.position, m_wall, Color.green);
         RaycastHit2D hit = Physics2D.Raycast(m_originPos.transform.position, m_wall, m_wall.magnitude, m_layerMask);
@@ -116,6 +127,11 @@ public class BossEnemyMove : MonoBehaviour
             m_dir.y = m_rb.velocity.y;
             m_rb.velocity = m_dir;
         }
+
+        if (m_flipX)
+        {
+            FlipX(m_wall.x);
+        }
     }
 
     IEnumerator FirstReset()
@@ -124,6 +140,38 @@ public class BossEnemyMove : MonoBehaviour
         m_randomIns = false;
         m_firstMove = true;
     }
+
+    void SecondAttackMove()
+    {
+        m_enemyPos = this.transform.position;
+        m_playerPos = GameObject.Find("Playerbox").transform.position;
+        Vector2 m_move = (m_playerPos - m_enemyPos).normalized;
+
+        m_secondTimer += Time.deltaTime;
+
+        if(m_secondTimer < 10)
+        {
+            m_rb.velocity += m_move * m_secondSpeed * Time.deltaTime;
+        }
+        else
+        {
+            m_rb.velocity = Vector2.zero;
+            StartCoroutine("SecondReset");
+        }
+
+        if (m_flipX)
+        {
+            FlipX(m_move.x);
+        }
+    }
+
+    IEnumerator SecondReset()
+    {
+        yield return new WaitForSeconds(5);
+        m_secondTimer = 0;
+        m_count = 0;
+    }
+
     void FlipX(float horizontal)
     {
 

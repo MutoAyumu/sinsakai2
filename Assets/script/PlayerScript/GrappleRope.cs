@@ -75,7 +75,7 @@ public class GrappleRope : MonoBehaviour
         {
             if (Mathf.Abs(m_lineRenderer.GetPosition(percision - 1).x - m_wireScript.m_hitPoint.x) > 0.1f)
             {
-                Debug.Log($"line: {m_lineRenderer.GetPosition(percision - 1).x}, grapple: {m_wireScript.m_hitPoint.x}");
+                //Debug.Log($"line: {m_lineRenderer.GetPosition(percision - 1).x}, grapple: {m_wireScript.m_hitPoint.x}");
                 DrawRopeWaves();
             }
             else
@@ -116,7 +116,7 @@ public class GrappleRope : MonoBehaviour
             
             if (i == 19)
             {
-                Debug.Log($"current: {currentPosition.x}, target: {targetPosition.x}");
+                //Debug.Log($"current: {currentPosition.x}, target: {targetPosition.x}");
             }
         }
     }

@@ -49,6 +49,8 @@ public class PlayerHealth : MonoBehaviour
     /// <param name="damage"></param>
     public void TakeDamage(float damage)
     {
+        Debug.Log("痛い");
+
         if (!Gmanager.m_godmode)
         {
             currenHp -= damage;
