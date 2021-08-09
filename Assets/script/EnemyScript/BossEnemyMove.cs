@@ -15,8 +15,8 @@ public class BossEnemyMove : MonoBehaviour
     [SerializeField] float m_secondSpeed = 10f;
     [SerializeField] float m_instanceTime = 1f;
     [SerializeField] int m_damage = 1;
-    [SerializeField] GameObject m_beamObject = default;
-
+    [SerializeField] GameObject m_movePoint = default;
+    
     Vector2 m_playerPos;
     Rigidbody2D m_rb;
     Animator m_anim;
@@ -29,6 +29,8 @@ public class BossEnemyMove : MonoBehaviour
     int m_count = 0;
     bool m_firstMove = true;
     bool m_randomIns = false;
+    bool m_secondMove = false;
+    bool m_phaseChange = true;
 
 
     Vector2 m_dir = Vector2.zero;
@@ -46,12 +48,11 @@ public class BossEnemyMove : MonoBehaviour
 
         if (m_enemy.m_currentHp > 0.5 * m_hpJudge)
         {
-            FirstAttackMove();
-
+            FirstPhase();
         }
         else
         {
-            SecondAttackMove();
+            SecondPhase();
         }
     }
 
@@ -81,13 +82,13 @@ public class BossEnemyMove : MonoBehaviour
         }
     }
 
-    void StartPhase()
+    void FirstAction()
     {
         m_timer += Time.deltaTime;
 
         if (!m_randomIns)
         {
-            m_instance = Random.Range(3, 5);
+            m_instance = Random.Range(3, 6);
             m_count = 0;
             m_randomIns = true;
         }
@@ -107,7 +108,7 @@ public class BossEnemyMove : MonoBehaviour
         }
     }
 
-    void FirstAttackMove()
+    void FirstPhase()
     {
         Debug.DrawRay(m_originPos.transform.position, m_wall, Color.green);
         RaycastHit2D hit = Physics2D.Raycast(m_originPos.transform.position, m_wall, m_wall.magnitude, m_layerMask);
@@ -122,7 +123,7 @@ public class BossEnemyMove : MonoBehaviour
 
         if (m_firstMove)
         {
-            StartPhase();
+            FirstAction();
             m_dir = m_wall * m_speed;
             m_dir.y = m_rb.velocity.y;
             m_rb.velocity = m_dir;
@@ -141,7 +142,50 @@ public class BossEnemyMove : MonoBehaviour
         m_firstMove = true;
     }
 
-    void SecondAttackMove()
+    void PhaseChange()
+    {
+        float dis = Vector2.Distance(m_movePoint.transform.position, this.transform.position);
+        Vector2 move = m_movePoint.transform.position - this.transform.position;
+
+        if (dis > 0.1f)
+        {
+            float speed = 5;            
+            m_rb.velocity = move.normalized * speed;
+        }
+        else
+        {
+            m_rb.velocity = Vector2.zero;
+            m_phaseChange = false;
+            StartCoroutine("ChangeMove");
+        }
+
+        if (m_flipX)
+        {
+            FlipX(move.x);
+        }
+    }
+
+    IEnumerator ChangeMove()
+    {
+        yield return new WaitForSeconds(3);
+        m_secondMove = true;
+    }
+
+    void SecondPhase()
+    {
+        
+        if (m_phaseChange)
+        {
+            PhaseChange();
+        }
+
+        if (m_secondMove)
+        {
+            SecondAction();
+        }
+    }
+
+    void SecondAction()
     {
         m_enemyPos = this.transform.position;
         m_playerPos = GameObject.Find("Playerbox").transform.position;
@@ -169,7 +213,6 @@ public class BossEnemyMove : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         m_secondTimer = 0;
-        m_count = 0;
     }
 
     void FlipX(float horizontal)

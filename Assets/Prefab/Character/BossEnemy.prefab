@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1077092891}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4, y: -3.08, z: 0}
+  m_LocalPosition: {x: -0.41, y: 0.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3507581264074529895}
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356110b5547a1a04494ad07f09f2ff6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHp: 3
+  m_maxHp: 15
   m_currentHp: 0
   m_slider: {fileID: 4425641128146577714}
 --- !u!114 &501487518
@@ -185,9 +185,8 @@ MonoBehaviour:
   m_enemy: {fileID: 501487517}
   m_children:
   - {fileID: 3161381330483564546, guid: 5969a3fec1ff1bf4aa4f762cdef817b1, type: 3}
-  - {fileID: 318320815847791873, guid: 36ccbc805b49bde489b465f40cee919f, type: 3}
-  - {fileID: 1981650231873462854, guid: ee8fc27d2c3b3ea4b94ac70955c2ad90, type: 3}
   - {fileID: 2343300637555778843, guid: e1cd7ea1fd4c8a9499c9a97b110a15ed, type: 3}
+  - {fileID: 318320815847791873, guid: 36ccbc805b49bde489b465f40cee919f, type: 3}
   instancePos: {fileID: 1077092891}
   m_originPos: {fileID: 801275591}
   m_wall: {x: -3, y: 0}
@@ -196,9 +195,10 @@ MonoBehaviour:
     m_Bits: 512
   m_flipX: 1
   m_speed: 1
-  m_secondSpeed: 25
+  m_secondSpeed: 30
   m_instanceTime: 1.5
   m_damage: 1
+  m_movePoint: {fileID: 0}
 --- !u!1001 &1310944069321800259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -340,6 +340,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Bounds.m_Extent.y
       value: 0.617872
+      objectReference: {fileID: 0}
+    - target: {fileID: -1152828559787731755, guid: f9583259847060847867393488b191a7,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.7529412
       objectReference: {fileID: 0}
     - target: {fileID: -1152828559787731755, guid: f9583259847060847867393488b191a7,
         type: 3}
