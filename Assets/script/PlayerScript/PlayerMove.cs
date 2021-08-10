@@ -21,6 +21,7 @@ public class PlayerMove : MonoBehaviour
     float m_v;
     float m_scaleX;
     Rigidbody2D m_rb = default;
+    PlayerHealth m_player = default;
     float m_timer = 0f;
     [SerializeField] float m_setTime = 3f;
 
@@ -32,6 +33,7 @@ public class PlayerMove : MonoBehaviour
     {
         m_rb = GetComponent<Rigidbody2D>();
         m_anim = GetComponent<Animator>();
+        m_player = GetComponent<PlayerHealth>();
     }
     void Update()
     {
@@ -46,7 +48,6 @@ public class PlayerMove : MonoBehaviour
         InputJump();
         UpdateJump();
         InputAttack();
-
     }
     /// <summary>攻撃の入力</summary>
     void InputAttack()
@@ -54,7 +55,7 @@ public class PlayerMove : MonoBehaviour
         m_timer += Time.deltaTime;
         var inputAttack = Input.GetButtonDown("Fire1");
         //ボタンが押されていたら
-        if(inputAttack)
+        if (inputAttack)
         {
             //経過時間が設定した時間よりも大きかったら
             if (m_timer > m_setTime)

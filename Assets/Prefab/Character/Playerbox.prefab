@@ -609,7 +609,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4933766961596350460}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.1686213, y: -2.6, z: -28.121754}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.39664492, y: 0.39664492, z: 0.39664492}
   m_Children:
   - {fileID: 6013394766400196391}
@@ -797,6 +797,7 @@ MonoBehaviour:
   currenHp: 0
   slider: {fileID: 0}
   m_player: {fileID: 1635236711}
+  m_invincible: 0
 --- !u!114 &1635236711
 MonoBehaviour:
   m_ObjectHideFlags: 0

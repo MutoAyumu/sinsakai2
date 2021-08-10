@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faf15813d1504384eb12c48a7c7ac796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 3
-  m_limitTime: 5
+  m_speed: 2
   m_flipX: 1
 --- !u!1001 &3437826009003330819
 PrefabInstance:
@@ -80,7 +79,7 @@ PrefabInstance:
     - target: {fileID: 3161381330483564546, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
       propertyPath: m_Name
-      value: Confusion
+      value: Confusion Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3161381330483564546, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}

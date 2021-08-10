@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5905d423e3e02e441aeaa6552e1a5e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 3
+  m_speed: 5
   m_flipX: 1
 --- !u!1001 &818080707572348185
 PrefabInstance:
@@ -79,7 +79,7 @@ PrefabInstance:
     - target: {fileID: 3161381330483564546, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}
       propertyPath: m_Name
-      value: Spiderweb
+      value: Spiderweb Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3161381330483564546, guid: 5969a3fec1ff1bf4aa4f762cdef817b1,
         type: 3}

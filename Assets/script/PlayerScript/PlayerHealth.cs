@@ -28,6 +28,7 @@ public class PlayerHealth : MonoBehaviour
     bool m_poisoned = false;
     bool m_spiderweb = false;
     bool m_confusion = false;
+    public bool m_invincible = false;
 
     void Start()
     {
@@ -49,12 +50,20 @@ public class PlayerHealth : MonoBehaviour
     /// <param name="damage"></param>
     public void TakeDamage(float damage)
     {
+
+        if (m_invincible)
+        {
+            return;
+        }
+
         Debug.Log("痛い");
 
         if (!Gmanager.m_godmode)
         {
             currenHp -= damage;
             Gmanager.m_currenthp = currenHp;
+            m_invincible = true;
+            StartCoroutine("invincibleReset");
 
             if (currenHp > 0)
             {
@@ -78,6 +87,13 @@ public class PlayerHealth : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator invincibleReset()
+    {
+        yield return new WaitForSeconds(3);
+        m_invincible = false;
+        
     }
 
     enum PlayerState
@@ -138,7 +154,7 @@ public class PlayerHealth : MonoBehaviour
                 break;
         }
 
-        if(m_poisoned)
+        if (m_poisoned)
         {
             StartCoroutine("StateChangePoisoned");
 
@@ -148,7 +164,7 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine("StateChangeWeb");
 
         }
-        if(m_confusion)
+        if (m_confusion)
         {
             StartCoroutine("StartChangeConfusion");
         }
@@ -163,9 +179,10 @@ public class PlayerHealth : MonoBehaviour
         {
             m_state = PlayerState.Poisoned;
         }
-        if(collision.gameObject.tag == "Confusion")
+        if (collision.gameObject.tag == "Confusion")
         {
             m_state = PlayerState.Confusion;
         }
     }
+
 }

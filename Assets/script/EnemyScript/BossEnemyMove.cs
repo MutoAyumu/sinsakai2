@@ -39,7 +39,7 @@ public class BossEnemyMove : MonoBehaviour
         m_rb = GetComponent<Rigidbody2D>();
         m_anim = GetComponent<Animator>();
         m_hpJudge = m_enemy.m_currentHp;
-
+        m_rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
     }
 
     void Update()
@@ -75,6 +75,7 @@ public class BossEnemyMove : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
         if (collision.gameObject.tag == "Player")
         {
             var Player = collision.gameObject.GetComponent<PlayerHealth>();
@@ -144,6 +145,7 @@ public class BossEnemyMove : MonoBehaviour
 
     void PhaseChange()
     {
+        m_rb.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
         float dis = Vector2.Distance(m_movePoint.transform.position, this.transform.position);
         Vector2 move = m_movePoint.transform.position - this.transform.position;
 
@@ -213,6 +215,11 @@ public class BossEnemyMove : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         m_secondTimer = 0;
+    }
+
+    void KnockBack()
+    {
+
     }
 
     void FlipX(float horizontal)
