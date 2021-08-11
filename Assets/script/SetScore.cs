@@ -15,5 +15,10 @@ public class SetScore : MonoBehaviour
     private void OnDestroy()
     {     
         Gmanager.Score(m_score);
+
+        if(this.gameObject.name == "BossEnemy")
+        {
+            Gmanager.m_gameSet = true;
+        }
     }
 }

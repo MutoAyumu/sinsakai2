@@ -43,6 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee9b8ff42e2bf84ab3e1eebb1b6017c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Respawn: {fileID: 0}
   lifeNum: 2
-  objectNum: 3
+  m_playerHealth: 10
+  m_currenthp: 0
+  m_godmode: 0
+  m_minutes: 5
+  m_timeText: {fileID: 0}
+  m_scoreText: {fileID: 0}
+  m_gameSet: 0

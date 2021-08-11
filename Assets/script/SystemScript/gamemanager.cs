@@ -17,7 +17,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] Text m_timeText;
 
     float m_score = 0;
-    [SerializeField] Text m_scoreText;
+    [SerializeField] Text m_scoreText = default;
 
     public bool m_gameSet = false;
     bool m_end = false;

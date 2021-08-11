@@ -11,9 +11,11 @@ public class EnemyHealth : MonoBehaviour
     public int m_currentHp;
     [SerializeField] Slider m_slider;
     int m_maxValue;
+    Animator m_anim;
 
     private void Start()
     {
+        m_anim = GetComponent<Animator>();
         m_maxValue = (int)m_slider.maxValue;
         m_currentHp = m_maxHp;
         m_slider.value = 1f;
@@ -42,7 +44,21 @@ public class EnemyHealth : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            DOVirtual.Float(m_slider.value, (float)m_currentHp / m_maxHp, 0.5f, value => m_slider.value = value);
+
+            if (this.gameObject.name == "BossEnemy")
+            {
+                m_anim.Play("EndAnimation");
+            }
+            else
+            {
+                Destroy();
+            }
         }
+    }
+
+    void Destroy()
+    {
+        Destroy(this.gameObject);
     }
 }

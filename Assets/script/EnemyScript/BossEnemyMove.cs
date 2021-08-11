@@ -31,6 +31,8 @@ public class BossEnemyMove : MonoBehaviour
     bool m_randomIns = false;
     bool m_secondMove = false;
     bool m_phaseChange = true;
+    bool m_gameStart = false;
+    bool m_gameEnd = false;
 
 
     Vector2 m_dir = Vector2.zero;
@@ -44,15 +46,17 @@ public class BossEnemyMove : MonoBehaviour
 
     void Update()
     {
-        
 
-        if (m_enemy.m_currentHp > 0.5 * m_hpJudge)
+        if (m_gameStart && !m_gameEnd)
         {
-            FirstPhase();
-        }
-        else
-        {
-            SecondPhase();
+            if (m_enemy.m_currentHp > 0.5 * m_hpJudge)
+            {
+                FirstPhase();
+            }
+            else
+            {
+                SecondPhase();
+            }
         }
     }
 
@@ -60,16 +64,11 @@ public class BossEnemyMove : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            //開始のアニメーションを流してプレイヤーの動きを止める
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            //アニメーションが終わったらstartPhaseを動かす
-
+            if (!m_gameStart)
+            {
+                //開始のアニメーションを流す
+                m_anim.Play("StartAnimation");
+            }
         }
     }
 
@@ -217,9 +216,14 @@ public class BossEnemyMove : MonoBehaviour
         m_secondTimer = 0;
     }
 
-    void KnockBack()
+    void GameStart()
     {
+        m_gameStart = true;
+    }
 
+    void GameEnd()
+    {
+        m_gameEnd = true;
     }
 
     void FlipX(float horizontal)
