@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class EnemyHealth : MonoBehaviour
 {
 
-    [SerializeField] int m_maxHp;
+    [SerializeField] public int m_maxHp;
     public int m_currentHp;
     [SerializeField] Slider m_slider;
     int m_maxValue;
@@ -17,7 +17,6 @@ public class EnemyHealth : MonoBehaviour
     {
         m_anim = GetComponent<Animator>();
         m_maxValue = (int)m_slider.maxValue;
-        m_currentHp = m_maxHp;
         m_slider.value = 1f;
         m_currentHp = m_maxHp;
     }

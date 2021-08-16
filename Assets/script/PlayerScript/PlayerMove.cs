@@ -25,6 +25,15 @@ public class PlayerMove : MonoBehaviour
     float m_timer = 0f;
     [SerializeField] float m_setTime = 3f;
 
+    //攻撃のRay
+    [SerializeField] GameObject m_originPos = default;
+    [SerializeField]LayerMask m_layer = default;
+    [SerializeField] Vector2 m_ray = Vector2.zero;
+
+    //攻撃時のEffectinstance
+    [SerializeField] GameObject m_rayHitObject = default;
+    [SerializeField] GameObject m_rayObject = default;
+
     //アニメーション
     Animator m_anim = default;
     [HideInInspector] public EnemyHealth m_EnemyHealth;
@@ -43,6 +52,8 @@ public class PlayerMove : MonoBehaviour
             return;
         }
 
+        Debug.DrawRay(m_originPos.transform.position, new Vector2(m_ray.x * this.transform.localScale.x, m_ray.y), Color.green);
+
         InputMove();
         UpdateMove();
         InputJump();
@@ -60,6 +71,19 @@ public class PlayerMove : MonoBehaviour
             //経過時間が設定した時間よりも大きかったら
             if (m_timer > m_setTime)
             {
+                RaycastHit2D hit = Physics2D.Raycast(m_originPos.transform.position, new Vector2(m_ray.x * this.transform.localScale.x, m_ray.y), m_ray.magnitude, m_layer);
+
+                if(hit)
+                {
+                    m_EnemyHealth = hit.collider.GetComponent<EnemyHealth>();
+                    Instantiate(m_rayHitObject, hit.point, Quaternion.identity);
+                }
+                else
+                {
+                    m_EnemyHealth = null;
+                    Instantiate(m_rayObject, new Vector2(m_originPos.transform.position.x + m_ray.x * this.transform.localScale.x, m_originPos.transform.position.y), Quaternion.identity);
+                }
+
                 m_anim.SetBool("NormalAttack", true);
                 m_timer = 0;
             }
@@ -166,20 +190,6 @@ public class PlayerMove : MonoBehaviour
             isAir = true;
             m_anim.SetBool("Down", true);
         }
-        //入ったコライダーのTagが"Enemy"なら
-        if (collision.gameObject.tag == "Enemy")
-        {
-            m_EnemyHealth = null;
-        }
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        //入ったコライダーのTagが"Enemy"なら
-        if (collision.gameObject.tag == "Enemy")
-        {
-            //そのコライダーにアタッチされたEnemyHealthコンポーネントを取得
-            m_EnemyHealth = collision.GetComponent<EnemyHealth>();
-        }
     }
     /// <summary>反転</summary>
     /// <param name="horizontal"></param>
@@ -189,10 +199,14 @@ public class PlayerMove : MonoBehaviour
         if (horizontal > 0)
         {
             this.transform.localScale = new Vector3(m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            m_rayObject.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            m_rayHitObject.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
         }
         else if (horizontal < 0)
         {
             this.transform.localScale = new Vector3(-1 * m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            m_rayObject.transform.localScale = new Vector3(-1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            m_rayHitObject.transform.localScale = new Vector3(-1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
         }
     }
 }

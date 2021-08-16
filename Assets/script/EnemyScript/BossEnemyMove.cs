@@ -40,7 +40,7 @@ public class BossEnemyMove : MonoBehaviour
     {
         m_rb = GetComponent<Rigidbody2D>();
         m_anim = GetComponent<Animator>();
-        m_hpJudge = m_enemy.m_currentHp;
+        m_hpJudge = m_enemy.m_maxHp;
         m_rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
     }
 
