@@ -29,10 +29,13 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] GameObject m_originPos = default;
     [SerializeField]LayerMask m_layer = default;
     [SerializeField] Vector2 m_ray = Vector2.zero;
+    RaycastHit2D m_hit;
 
     //攻撃時のEffectinstance
     [SerializeField] GameObject m_rayHitObject = default;
     [SerializeField] GameObject m_rayObject = default;
+    [SerializeField] GameObject m_rayUpHitObject = default;
+    [SerializeField] GameObject m_rayUpObject = default;
 
     //アニメーション
     Animator m_anim = default;
@@ -52,7 +55,8 @@ public class PlayerMove : MonoBehaviour
             return;
         }
 
-        Debug.DrawRay(m_originPos.transform.position, new Vector2(m_ray.x * this.transform.localScale.x, m_ray.y), Color.green);
+        Debug.DrawRay(m_originPos.transform.position, new Vector2(m_ray.x * this.transform.localScale.x, 0), Color.green);
+        Debug.DrawRay(m_originPos.transform.position, new Vector2(0, m_ray.y), Color.green);
 
         InputMove();
         UpdateMove();
@@ -71,20 +75,42 @@ public class PlayerMove : MonoBehaviour
             //経過時間が設定した時間よりも大きかったら
             if (m_timer > m_setTime)
             {
-                RaycastHit2D hit = Physics2D.Raycast(m_originPos.transform.position, new Vector2(m_ray.x * this.transform.localScale.x, m_ray.y), m_ray.magnitude, m_layer);
-
-                if(hit)
+                if (m_v > 0.5)
                 {
-                    m_EnemyHealth = hit.collider.GetComponent<EnemyHealth>();
-                    Instantiate(m_rayHitObject, hit.point, Quaternion.identity);
+                    m_hit = Physics2D.Raycast(m_originPos.transform.position, new Vector2(0, m_ray.y), m_ray.magnitude, m_layer);
+                }
+                else
+                {
+                    //ray出す
+                    m_hit = Physics2D.Raycast(m_originPos.transform.position, new Vector2(m_ray.x * this.transform.localScale.x, 0), m_ray.magnitude, m_layer);
+                }
+
+                //当たったら
+                if(m_hit && m_v > 0.5)
+                {
+                    m_EnemyHealth = m_hit.collider.GetComponent<EnemyHealth>();
+                    m_anim.SetBool("VarticalAttack", true);
+                    Instantiate(m_rayUpHitObject, m_hit.point, Quaternion.identity);
+                }
+                else if(!m_hit && m_v > 0.5)
+                {
+                    m_EnemyHealth = null;
+                    m_anim.SetBool("VarticalAttack", true);
+                    Instantiate(m_rayUpObject, new Vector2(m_originPos.transform.position.x, m_originPos.transform.position.y + m_ray.y), Quaternion.identity);
+                }
+                else if(m_hit)
+                {
+                    m_EnemyHealth = m_hit.collider.GetComponent<EnemyHealth>();
+                    m_anim.SetBool("HorizontalAttack", true);
+                    Instantiate(m_rayHitObject, m_hit.point, Quaternion.identity);
                 }
                 else
                 {
                     m_EnemyHealth = null;
+                    m_anim.SetBool("HorizontalAttack", true);
                     Instantiate(m_rayObject, new Vector2(m_originPos.transform.position.x + m_ray.x * this.transform.localScale.x, m_originPos.transform.position.y), Quaternion.identity);
                 }
 
-                m_anim.SetBool("NormalAttack", true);
                 m_timer = 0;
             }
         }
@@ -171,7 +197,14 @@ public class PlayerMove : MonoBehaviour
     }
     private void AttackFin()
     {
-        m_anim.SetBool("NormalAttack", false);
+        if (m_anim.GetBool("HorizontalAttack"))
+        {
+            m_anim.SetBool("HorizontalAttack", false);
+        }
+        if(m_anim.GetBool("VarticalAttack"))
+        {
+            m_anim.SetBool("VarticalAttack", false);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -199,14 +232,14 @@ public class PlayerMove : MonoBehaviour
         if (horizontal > 0)
         {
             this.transform.localScale = new Vector3(m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
-            m_rayObject.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
-            m_rayHitObject.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            m_rayObject.transform.localScale = new Vector3(m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            m_rayHitObject.transform.localScale = new Vector3(m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
         }
         else if (horizontal < 0)
         {
             this.transform.localScale = new Vector3(-1 * m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
-            m_rayObject.transform.localScale = new Vector3(-1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
-            m_rayHitObject.transform.localScale = new Vector3(-1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            m_rayObject.transform.localScale = new Vector3(-1 * m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+            m_rayHitObject.transform.localScale = new Vector3(-1 * m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
         }
     }
 }
