@@ -75,6 +75,7 @@ public class PlayerMove : MonoBehaviour
             //経過時間が設定した時間よりも大きかったら
             if (m_timer > m_setTime)
             {
+
                 if (m_v > 0.5)
                 {
                     m_hit = Physics2D.Raycast(m_originPos.transform.position, new Vector2(0, m_ray.y), m_ray.magnitude, m_layer);
@@ -89,6 +90,7 @@ public class PlayerMove : MonoBehaviour
                 if(m_hit && m_v > 0.5)
                 {
                     m_EnemyHealth = m_hit.collider.GetComponent<EnemyHealth>();
+                    m_anim.SetBool("Attack", true);
                     m_anim.SetBool("VarticalAttack", true);
                     Instantiate(m_rayUpHitObject, m_hit.point, Quaternion.identity);
                 }
@@ -96,18 +98,21 @@ public class PlayerMove : MonoBehaviour
                 {
                     m_EnemyHealth = null;
                     m_anim.SetBool("VarticalAttack", true);
+                    m_anim.SetBool("Attack", true);
                     Instantiate(m_rayUpObject, new Vector2(m_originPos.transform.position.x, m_originPos.transform.position.y + m_ray.y), Quaternion.identity);
                 }
                 else if(m_hit)
                 {
                     m_EnemyHealth = m_hit.collider.GetComponent<EnemyHealth>();
                     m_anim.SetBool("HorizontalAttack", true);
+                    m_anim.SetBool("Attack", true);
                     Instantiate(m_rayHitObject, m_hit.point, Quaternion.identity);
                 }
                 else
                 {
                     m_EnemyHealth = null;
                     m_anim.SetBool("HorizontalAttack", true);
+                    m_anim.SetBool("Attack", true);
                     Instantiate(m_rayObject, new Vector2(m_originPos.transform.position.x + m_ray.x * this.transform.localScale.x, m_originPos.transform.position.y), Quaternion.identity);
                 }
 
@@ -197,6 +202,8 @@ public class PlayerMove : MonoBehaviour
     }
     private void AttackFin()
     {
+        m_anim.SetBool("Attack", false);
+
         if (m_anim.GetBool("HorizontalAttack"))
         {
             m_anim.SetBool("HorizontalAttack", false);
