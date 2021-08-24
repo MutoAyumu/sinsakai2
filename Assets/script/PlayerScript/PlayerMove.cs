@@ -213,7 +213,8 @@ public class PlayerMove : MonoBehaviour
             m_anim.SetBool("VarticalAttack", false);
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
         //入ったコライダーのTagが"ground"なら
         if (collision.gameObject.tag == "ground")
