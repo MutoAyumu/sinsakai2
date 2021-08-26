@@ -16,7 +16,7 @@ public class gamemanager : MonoBehaviour
 
     [SerializeField] Text m_timeText;
 
-    float m_score = 0;
+    public float m_score = 0;
     [SerializeField] Text m_scoreText = default;
 
     public bool m_gameSet = false;
@@ -57,11 +57,17 @@ public class gamemanager : MonoBehaviour
 
     void Timer()
     {
-        m_gameTimer -= Time.deltaTime;
+        if (m_timeText)
+        {
+            m_gameTimer -= Time.deltaTime;
+        }
     }
     public void Score(float score)
     {
-        m_score += score;
-        m_scoreText.text = "スコア : " + m_score.ToString();
+        if (m_scoreText)
+        {
+            m_score += score;
+            m_scoreText.text = "スコア : " + m_score.ToString();
+        }
     }
 }

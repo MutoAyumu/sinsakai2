@@ -8,6 +8,7 @@ public class EnemyHealth : MonoBehaviour
 {
 
     [SerializeField] public int m_maxHp;
+    [SerializeField] float m_score = 100;
     public int m_currentHp;
     [SerializeField] Slider m_slider;
     int m_maxValue;
@@ -35,6 +36,7 @@ public class EnemyHealth : MonoBehaviour
     //}
     public void TakeDamage(int damage)
     {
+        var Gmanager = GameObject.Find("gamemanager").GetComponent<gamemanager>();
         m_currentHp -= damage;
         
         if(m_currentHp > 0)
@@ -44,6 +46,12 @@ public class EnemyHealth : MonoBehaviour
         else
         {
             DOVirtual.Float(m_slider.value, (float)m_currentHp / m_maxHp, 0.5f, value => m_slider.value = value);
+            Gmanager.Score(m_score);
+
+            if (this.gameObject.name == "BossEnemy")
+            {
+                Gmanager.m_gameSet = true;
+            }
 
             if (this.gameObject.name == "BossEnemy")
             {
@@ -60,4 +68,14 @@ public class EnemyHealth : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
+
+    private void OnDestroy()
+    {
+        if(this.gameObject.name == "BossEnemy")
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("EndScene");
+        }
+    }
+
+
 }

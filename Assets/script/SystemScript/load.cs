@@ -18,6 +18,7 @@ public class load : MonoBehaviour
     }
     public void Load()
     {
-        SceneManager.LoadScene("SampleScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("EndScene");
+        //UnityEngine.SceneManagement.SceneManager.LoadScene("EndScene", UnityEngine.SceneManagement.LoadSceneMode.Additive);
     }
 }
