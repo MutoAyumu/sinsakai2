@@ -12,7 +12,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] public bool m_godmode = false;
 
     [SerializeField] int m_minutes = 5;
-    float m_gameTimer;
+    public float m_gameTimer;
 
     [SerializeField] Text m_timeText;
 

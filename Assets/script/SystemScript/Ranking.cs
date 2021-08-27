@@ -25,7 +25,7 @@ public class Ranking : MonoBehaviour
 
         for (int i = 0; i < rankingText.Length; i++)
         {
-            rankingText[i].text = rankingValue[i].ToString();
+            rankingText[i].text = $"{i+1}位:{rankingValue[i]}";
         }
     }
 
@@ -43,17 +43,17 @@ public class Ranking : MonoBehaviour
     /// <summary>
     /// ランキング書き込み
     /// </summary>
-    void SetRanking(float _value)
+    void SetRanking(float score)
     {
         //書き込み用
         for (int i = 0; i < ranking.Length; i++)
         {
             //取得した値とRankingの値を比較して入れ替え
-            if (_value > rankingValue[i])
+            if (score > rankingValue[i])
             {
                 var change = rankingValue[i];
-                rankingValue[i] = (int)_value;
-                _value = change;
+                rankingValue[i] = (int)score;
+                score = change;
             }
         }
 

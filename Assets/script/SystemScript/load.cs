@@ -16,9 +16,20 @@ public class load : MonoBehaviour
     {
         
     }
-    public void Load()
+    public void LoadSceneEnd()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("EndScene");
+        SceneManager.LoadScene("EndScene");
         //UnityEngine.SceneManagement.SceneManager.LoadScene("EndScene", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+    }
+
+    public void LoadSceneStart()
+    {
+        SceneManager.LoadScene("TitleScene");
+    }
+
+    public void LoadRestart()
+    {
+        SceneManager.LoadScene("GameScene");
+        Time.timeScale = 1f;
     }
 }
