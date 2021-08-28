@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     //[SerializeField] public int max_hp;
     [SerializeField] float currenHp;
     int m_maxhp;
+    int m_life;
     int maxvalue;
 
     public Slider slider;
@@ -38,6 +39,7 @@ public class PlayerHealth : MonoBehaviour
         maxvalue = (int)slider.maxValue;
         m_maxhp = Gmanager.m_playerHealth;
         currenHp = Gmanager.m_currenthp;
+        m_life = Gmanager.lifeNum;
         slider.value = (float)currenHp / m_maxhp;
         m_jumpState = m_player.m_jumppower;
         m_moveState = m_player.m_movepower;
@@ -61,7 +63,7 @@ public class PlayerHealth : MonoBehaviour
         if (!Gmanager.m_godmode)
         {
             currenHp -= damage;
-            Gmanager.m_currenthp = currenHp;
+            //Gmanager.m_currenthp = currenHp;
             m_invincible = true;
             StartCoroutine("invincibleReset");
 
@@ -71,14 +73,14 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
-                Gmanager.lifeNum--;
+                m_life--;
 
-                if (Gmanager.lifeNum >= 0)
+                if (m_life > 0)
                 {
                     transform.position = ResPos.transform.position;
                     slider.value = 1f;
                     currenHp = m_maxhp;
-                    Gmanager.m_currenthp = m_maxhp;
+                    //Gmanager.m_currenthp = m_maxhp;
                 }
                 else
                 {

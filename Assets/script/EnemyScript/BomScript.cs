@@ -27,7 +27,7 @@ public class BomScript : MonoBehaviour
         UpdateMove();
         UpdateTimer();
 
-        PlayerPos = GameObject.Find("Playerbox").transform.position;
+        PlayerPos = GameObject.FindWithTag("Player").transform.position;
 
         if(m_flipX)
         {

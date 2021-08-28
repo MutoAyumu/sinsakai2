@@ -27,7 +27,7 @@ public class PlayerMove : MonoBehaviour
 
     //攻撃のRay
     [SerializeField] GameObject m_originPos = default;
-    [SerializeField]LayerMask m_layer = default;
+    [SerializeField] LayerMask m_layer = default;
     [SerializeField] Vector2 m_ray = Vector2.zero;
     RaycastHit2D m_hit;
 
@@ -87,21 +87,21 @@ public class PlayerMove : MonoBehaviour
                 }
 
                 //当たったら
-                if(m_hit && m_v > 0.5)
+                if (m_hit && m_v > 0.5)
                 {
                     m_EnemyHealth = m_hit.collider.GetComponent<EnemyHealth>();
                     m_anim.SetBool("Attack", true);
                     m_anim.SetBool("VarticalAttack", true);
                     Instantiate(m_rayUpHitObject, m_hit.point, Quaternion.identity);
                 }
-                else if(!m_hit && m_v > 0.5)
+                else if (!m_hit && m_v > 0.5)
                 {
                     m_EnemyHealth = null;
                     m_anim.SetBool("VarticalAttack", true);
                     m_anim.SetBool("Attack", true);
                     Instantiate(m_rayUpObject, new Vector2(m_originPos.transform.position.x, m_originPos.transform.position.y + m_ray.y), Quaternion.identity);
                 }
-                else if(m_hit)
+                else if (m_hit)
                 {
                     m_EnemyHealth = m_hit.collider.GetComponent<EnemyHealth>();
                     m_anim.SetBool("HorizontalAttack", true);
@@ -200,6 +200,7 @@ public class PlayerMove : MonoBehaviour
             m_anim.SetBool("Jump", false);
         }
     }
+
     private void AttackFin()
     {
         m_anim.SetBool("Attack", false);
@@ -208,7 +209,7 @@ public class PlayerMove : MonoBehaviour
         {
             m_anim.SetBool("HorizontalAttack", false);
         }
-        if(m_anim.GetBool("VarticalAttack"))
+        if (m_anim.GetBool("VarticalAttack"))
         {
             m_anim.SetBool("VarticalAttack", false);
         }

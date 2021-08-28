@@ -21,19 +21,7 @@ public class EnemyHealth : MonoBehaviour
         m_slider.value = 1f;
         m_currentHp = m_maxHp;
     }
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.tag == "Player")
-    //    {
-    //        var hit = collision.gameObject;
-    //        var hp = hit.GetComponent<PlayerHealth>();
 
-    //        if (hp != null)
-    //        {
-    //            hp.TakeDamage(m_damage);
-    //        }
-    //    }
-    //}
     public void TakeDamage(int damage)
     {
         
@@ -63,10 +51,11 @@ public class EnemyHealth : MonoBehaviour
 
     void Destroy()
     {
-        Destroy(this.gameObject);
         if (this.gameObject.name == "BossEnemy")
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("EndScene");
         }
+
+        Destroy(this.gameObject);
     }
 }

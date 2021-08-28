@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class gamemanager : MonoBehaviour
 {
     public static gamemanager instance = null;
-    public int lifeNum;
-    public int m_playerHealth;
-    public float m_currenthp;
+    [SerializeField] public int lifeNum;
+    [SerializeField] public int m_playerHealth;
+    [SerializeField] public float m_currenthp;
     [SerializeField] public bool m_godmode = false;
 
     [SerializeField] int m_minutes = 5;
@@ -31,7 +31,7 @@ public class gamemanager : MonoBehaviour
         if (instance != null)
         {
             Destroy(this.gameObject);
-           
+
         }
         else
         {
@@ -46,13 +46,16 @@ public class gamemanager : MonoBehaviour
         {
             Timer();
         }
-        else if(!m_end)
+        else if (!m_end)
         {
             Score((int)m_gameTimer * 10);
             m_end = true;
         }
 
-        m_timeText.text = "残り時間 : " + ((int)m_gameTimer).ToString();
+        if (m_timeText)
+        {
+            m_timeText.text = "残り時間 : " + ((int)m_gameTimer).ToString();
+        }
     }
 
     void Timer()

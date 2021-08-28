@@ -224,6 +224,7 @@ public class BossEnemyMove : MonoBehaviour
     void GameEnd()
     {
         m_gameEnd = true;
+        m_rb.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
     void FlipX(float horizontal)
