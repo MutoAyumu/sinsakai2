@@ -27,15 +27,15 @@ RectTransform:
   m_GameObject: {fileID: 1569068530340590624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.4084501, y: 3.4084501, z: 2.2723}
+  m_LocalScale: {x: 0.6640566, y: 0.6640566, z: 0}
   m_Children: []
   m_Father: {fileID: 4997429824134799915}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -257.91, y: -58}
-  m_SizeDelta: {x: 256, y: 256}
+  m_AnchoredPosition: {x: -153, y: 31}
+  m_SizeDelta: {x: 1920, y: 1920}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1283648269315217826
 CanvasRenderer:
@@ -256,7 +256,7 @@ RectTransform:
   m_GameObject: {fileID: 4059757227374239035}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.7167494, y: 2.7167494, z: 2.7167494}
+  m_LocalScale: {x: 1.3927417, y: 1.3927417, z: 1.3927417}
   m_Children:
   - {fileID: 4748309436268387278}
   m_Father: {fileID: 4997429824134799915}
@@ -264,7 +264,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 446.49, y: -39.8219}
+  m_AnchoredPosition: {x: 614, y: -86}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3054459632561164328
@@ -370,6 +370,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a2d5ee19407554cb9444acfa0a61bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_sceneNameToBeLoaded: SceneNameToBeLoaded
+  m_fadePanel: {fileID: 0}
+  m_fadeSpeed: 1
 --- !u!1 &4144196133989339696
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +555,7 @@ RectTransform:
   m_GameObject: {fileID: 7632165647038314499}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.7167494, y: 2.7167494, z: 2.7167494}
+  m_LocalScale: {x: 1.3927417, y: 1.3927417, z: 1.3927417}
   m_Children:
   - {fileID: 6216677947503649995}
   m_Father: {fileID: 4997429824134799915}
@@ -560,7 +563,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 446.49, y: -214.1}
+  m_AnchoredPosition: {x: 614, y: -260.2781}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6345926727464145373
@@ -666,6 +669,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a2d5ee19407554cb9444acfa0a61bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_sceneNameToBeLoaded: SceneNameToBeLoaded
+  m_fadePanel: {fileID: 0}
+  m_fadeSpeed: 1
 --- !u!1 &7974246536723672286
 GameObject:
   m_ObjectHideFlags: 0
