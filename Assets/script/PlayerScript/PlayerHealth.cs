@@ -6,14 +6,11 @@ using DG.Tweening;
 
 public class PlayerHealth : MonoBehaviour
 {
-    //[SerializeField] public int max_hp;
     [SerializeField] float currenHp;
     int m_maxhp;
     int m_life;
-    int maxvalue;
 
-    public Slider slider;
-    Slider destroySlider;
+    PlayerCounter m_playerCounter;
 
     gamemanager Gmanager;
 
@@ -25,7 +22,6 @@ public class PlayerHealth : MonoBehaviour
     float m_moveState;
     float m_webJump;
     float m_webMove;
-    float m_damage;
     bool m_poisoned = false;
     bool m_spiderweb = false;
     bool m_confusion = false;
@@ -36,15 +32,16 @@ public class PlayerHealth : MonoBehaviour
         ResPos = GameObject.Find("RespawnPoint").GetComponent<Transform>();
         this.transform.position = ResPos.transform.position;
         Gmanager = GameObject.Find("gamemanager").GetComponent<gamemanager>();
-        maxvalue = (int)slider.maxValue;
         m_maxhp = Gmanager.m_playerHealth;
         currenHp = Gmanager.m_currenthp;
         m_life = Gmanager.lifeNum;
-        slider.value = (float)currenHp / m_maxhp;
         m_jumpState = m_player.m_jumppower;
         m_moveState = m_player.m_movepower;
         m_webJump = m_jumpState / 2;
         m_webMove = m_moveState / 2;
+        m_playerCounter = GetComponent<PlayerCounter>();
+        m_playerCounter.Refresh(currenHp);
+        m_playerCounter.Set(currenHp);
     }
 
 
@@ -63,28 +60,27 @@ public class PlayerHealth : MonoBehaviour
         if (!Gmanager.m_godmode)
         {
             currenHp -= damage;
-            //Gmanager.m_currenthp = currenHp;
             m_invincible = true;
             StartCoroutine("invincibleReset");
 
             if (currenHp > 0)
             {
-                DOVirtual.Float(slider.value, (float)currenHp / m_maxhp, 0.5f, value => slider.value = value);
+                m_playerCounter.Refresh(currenHp);
             }
             else
             {
-                m_life--;
-
                 if (m_life > 0)
                 {
+                    m_life--;
                     transform.position = ResPos.transform.position;
-                    slider.value = 1f;
                     currenHp = m_maxhp;
-                    //Gmanager.m_currenthp = m_maxhp;
+                    m_playerCounter.Refresh(currenHp);
+                    m_playerCounter.Set(currenHp);
+                    Gmanager.m_currenthp = m_maxhp;
                 }
                 else
                 {
-                    slider.value = 0f;
+                    m_playerCounter.Refresh(currenHp);
                     Destroy(gameObject);
                 }
             }
@@ -95,7 +91,7 @@ public class PlayerHealth : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         m_invincible = false;
-        
+
     }
 
     enum PlayerState
