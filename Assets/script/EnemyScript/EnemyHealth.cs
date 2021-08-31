@@ -51,11 +51,6 @@ public class EnemyHealth : MonoBehaviour
 
     void Destroy()
     {
-        if (this.gameObject.name == "BossEnemy")
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("EndScene");
-        }
-
         Destroy(this.gameObject);
     }
 }

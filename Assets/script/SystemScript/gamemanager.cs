@@ -19,8 +19,8 @@ public class gamemanager : MonoBehaviour
     public float m_score = 0;
     [SerializeField] Text m_scoreText = default;
 
-    public bool m_gameSet = false;
-    bool m_end = false;
+    [HideInInspector] public bool m_gameSet = false;
+    public bool m_end = false;
 
     private void Awake()
     {
@@ -54,9 +54,9 @@ public class gamemanager : MonoBehaviour
 
         if (m_timeText)
         {
-            m_timeText.text = "残り時間 : " + ((int)m_gameTimer).ToString();
+            m_timeText.text = "残り時間 : " + ((int)m_gameTimer).ToString();      
         }
-    }
+    }  
 
     void Timer()
     {
