@@ -99,7 +99,8 @@ public class PlayerMove : MonoBehaviour
                     m_EnemyHealth = null;
                     m_anim.SetBool("VarticalAttack", true);
                     m_anim.SetBool("Attack", true);
-                    Instantiate(m_rayUpObject, new Vector2(m_originPos.transform.position.x, m_originPos.transform.position.y + m_ray.y), Quaternion.identity);
+                    var ins = Instantiate(m_rayUpObject, new Vector2(m_originPos.transform.position.x, m_originPos.transform.position.y + m_ray.y), Quaternion.identity);
+                    ins.transform.SetParent(this.transform);
                 }
                 else if (m_hit)
                 {
