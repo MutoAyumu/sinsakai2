@@ -24,7 +24,7 @@ public class load : MonoBehaviour
             if (m_fadePanel)
             {
                 Color panelColor = m_fadePanel.color;
-                panelColor.a += m_fadeSpeed * Time.deltaTime;
+                panelColor.a += m_fadeSpeed * Time.unscaledDeltaTime;//Time.unscaledDeltaTimeはtimescaleの影響を受けない
                 m_fadePanel.color = panelColor;
 
                 // ほぼ不透明になったら
