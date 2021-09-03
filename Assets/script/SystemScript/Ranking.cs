@@ -25,7 +25,7 @@ public class Ranking : MonoBehaviour
 
         for (int i = 0; i < rankingText.Length; i++)
         {
-            rankingText[i].text = $"{i+1}位:{rankingValue[i]}";
+            rankingText[i].text = $"NO.{i+1} : {rankingValue[i]}";
         }
     }
 

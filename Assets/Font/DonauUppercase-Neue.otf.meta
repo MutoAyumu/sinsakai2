@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 1670e1a6153e8234e9eeb2f5016664fd
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Donau Uppercase
+  fontNames:
+  - Donau Uppercase
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 376c3edca86992145b95ec274ab033f7, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
