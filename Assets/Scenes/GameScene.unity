@@ -5737,6 +5737,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Playerbox
       objectReference: {fileID: 0}
+    - target: {fileID: 4933766961596350461, guid: ea6b2f5904be59944b09e319db9a15b1,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: f62883d13b6e386498b1b4e2de3934a0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea6b2f5904be59944b09e319db9a15b1, type: 3}
 --- !u!1 &670917054

@@ -839,6 +839,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1591459545}
   - component: {fileID: 1591459544}
+  - component: {fileID: 1591459546}
   m_Layer: 0
   m_Name: Freeform Light 2D (1)
   m_TagString: Untagged
@@ -895,12 +896,31 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591459543}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: 6.11, z: 0}
+  m_LocalPosition: {x: 0, y: 5.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!95 &1591459546
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591459543}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5c3b902fed79b34c9f212b64f3de63c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1681139654
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1202,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 8e7d87c4ab6cc01409029f833e25e1ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1241,7 +1261,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -1362,7 +1382,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 2.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1478,7 +1498,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.08
+      scalar: 0.13
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1940,7 +1960,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 6
       mode: 0
       spread: 0
       speed:
@@ -5891,13 +5911,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739259919}
-  m_LocalRotation: {x: -0.69091964, y: 0.15043284, z: -0.15043284, w: 0.69091964}
-  m_LocalPosition: {x: -3.42, y: -6.46, z: -2.6572986}
+  m_LocalRotation: {x: 0.0016985897, y: 0.70710474, z: -0.70710474, w: -0.0016986032}
+  m_LocalPosition: {x: -0.13, y: 5.34, z: -2.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: -114.565994, y: -90, z: 89.99999}
+  m_LocalEulerAnglesHint: {x: -270.276, y: -90.00001, z: 90.00001}
 --- !u!1 &1852034090
 GameObject:
   m_ObjectHideFlags: 0
@@ -5908,6 +5928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1852034092}
   - component: {fileID: 1852034091}
+  - component: {fileID: 1852034093}
   m_Layer: 0
   m_Name: Freeform Light 2D
   m_TagString: Untagged
@@ -5932,7 +5953,7 @@ MonoBehaviour:
   m_FalloffIntensity: 0.848
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_LightVolumeOpacity: 0.192
+  m_LightVolumeOpacity: 0.407
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
@@ -5943,7 +5964,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 0
   m_PointLightOuterAngle: 230
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 15
+  m_PointLightOuterRadius: 18
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -5970,6 +5991,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1852034093
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852034090}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5c3b902fed79b34c9f212b64f3de63c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1955222001
 GameObject:
   m_ObjectHideFlags: 0
