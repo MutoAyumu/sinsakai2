@@ -51,4 +51,9 @@ public class load : MonoBehaviour
     {
         m_isLoadStarted = true;
     }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
