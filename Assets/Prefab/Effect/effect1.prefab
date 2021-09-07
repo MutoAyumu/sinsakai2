@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 1969580967337137021}
   - component: {fileID: 2685668217787302896}
   - component: {fileID: 2685668217787302898}
+  - component: {fileID: 3539448911102031100}
   m_Layer: 0
   m_Name: effect1
   m_TagString: Untagged
@@ -109,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 2276976873323302169}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 0}
   m_Children:
   - {fileID: 1833147610462555917}
   - {fileID: 3121331726573764860}
@@ -150,6 +151,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde7337475193fd41aaba144abf4a214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_damage: 1
+--- !u!58 &3539448911102031100
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2276976873323302169}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.07, y: 0.41}
+  serializedVersion: 2
+  m_Radius: 1.3
 --- !u!1 &3274371985585994362
 GameObject:
   m_ObjectHideFlags: 0

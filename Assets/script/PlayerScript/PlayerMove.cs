@@ -47,6 +47,14 @@ public class PlayerMove : MonoBehaviour
         m_anim = GetComponent<Animator>();
         m_player = GetComponent<PlayerHealth>();
     }
+
+    private void OnDrawGizmos()
+    {
+        //X方向のBoxCast
+        Gizmos.DrawCube(new Vector2(m_originPos.transform.position.x + m_ray.x/2,m_originPos.transform.position.y), new Vector2(m_ray.x, 1));
+        //Y方向のBoxCast
+        Gizmos.DrawCube(new Vector2(m_originPos.transform.position.x, m_originPos.transform.position.y + m_ray.y/2), new Vector2(1, m_ray.y));
+    }
     void Update()
     {
         //Time.timeScaleが0ならばUpdateの処理を行わない
@@ -57,6 +65,7 @@ public class PlayerMove : MonoBehaviour
 
         Debug.DrawRay(m_originPos.transform.position, new Vector2(m_ray.x * this.transform.localScale.x, 0), Color.green);
         Debug.DrawRay(m_originPos.transform.position, new Vector2(0, m_ray.y), Color.green);
+        
 
         InputMove();
         UpdateMove();
@@ -78,18 +87,17 @@ public class PlayerMove : MonoBehaviour
 
                 if (m_v > 0.5)
                 {
-                    m_hit = Physics2D.Raycast(m_originPos.transform.position, new Vector2(0, m_ray.y), m_ray.magnitude, m_layer);
+                    m_hit = Physics2D.BoxCast(new Vector2(m_originPos.transform.position.x, m_originPos.transform.position.y + m_ray.y), new Vector2(1,1), 0, new Vector2(0,0), 0, m_layer);
                 }
                 else
                 {
                     //ray出す
-                    m_hit = Physics2D.Raycast(m_originPos.transform.position, new Vector2(m_ray.x * this.transform.localScale.x, 0), m_ray.magnitude, m_layer);
+                    m_hit = Physics2D.BoxCast(new Vector2(m_originPos.transform.position.x + m_ray.x, m_originPos.transform.position.y), new Vector2(1, 1), 0, new Vector2(0, 0), 0, m_layer);
                 }
 
                 //当たったら
                 if (m_hit && m_v > 0.5)
                 {
-                    m_EnemyHealth = m_hit.collider.GetComponent<EnemyHealth>();
                     m_anim.SetBool("Attack", true);
                     m_anim.SetBool("VarticalAttack", true);
                     Instantiate(m_rayUpHitObject, m_hit.point, Quaternion.identity);
@@ -104,7 +112,7 @@ public class PlayerMove : MonoBehaviour
                 }
                 else if (m_hit)
                 {
-                    m_EnemyHealth = m_hit.collider.GetComponent<EnemyHealth>();
+                    //m_EnemyHealth = m_hit.collider.GetComponent<EnemyHealth>();
                     m_anim.SetBool("HorizontalAttack", true);
                     m_anim.SetBool("Attack", true);
                     Instantiate(m_rayHitObject, m_hit.point, Quaternion.identity);

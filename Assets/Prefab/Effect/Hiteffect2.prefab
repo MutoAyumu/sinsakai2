@@ -174,6 +174,7 @@ GameObject:
   - component: {fileID: 7311154487417889364}
   - component: {fileID: 4637316486220943708}
   - component: {fileID: 4637316486220943711}
+  - component: {fileID: -8427209350061768197}
   m_Layer: 0
   m_Name: Hiteffect2
   m_TagString: Untagged
@@ -231,6 +232,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde7337475193fd41aaba144abf4a214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_damage: 1
+--- !u!58 &-8427209350061768197
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3849644483542197589}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.9}
+  serializedVersion: 2
+  m_Radius: 1.84
 --- !u!1 &4893134888422305873
 GameObject:
   m_ObjectHideFlags: 0
