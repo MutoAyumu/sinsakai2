@@ -28,7 +28,8 @@ public class PlayerMove : MonoBehaviour
     //攻撃のRay
     [SerializeField] GameObject m_originPos = default;
     [SerializeField] LayerMask m_layer = default;
-    [SerializeField] Vector2 m_ray = Vector2.zero;
+    [SerializeField] Vector2 m_boxRay = Vector2.zero;
+    [SerializeField] float m_boxRaySize = 1f;
     RaycastHit2D m_hit;
 
     //攻撃時のEffectinstance
@@ -47,31 +48,26 @@ public class PlayerMove : MonoBehaviour
         m_anim = GetComponent<Animator>();
         m_player = GetComponent<PlayerHealth>();
     }
-
-    private void OnDrawGizmos()
-    {
-        //X方向のBoxCast
-        Gizmos.DrawCube(new Vector2(m_originPos.transform.position.x + m_ray.x/2,m_originPos.transform.position.y), new Vector2(m_ray.x, 1));
-        //Y方向のBoxCast
-        Gizmos.DrawCube(new Vector2(m_originPos.transform.position.x, m_originPos.transform.position.y + m_ray.y/2), new Vector2(1, m_ray.y));
-    }
     void Update()
     {
         //Time.timeScaleが0ならばUpdateの処理を行わない
         if (Mathf.Approximately(Time.timeScale, 0f))
         {
             return;
-        }
-
-        Debug.DrawRay(m_originPos.transform.position, new Vector2(m_ray.x * this.transform.localScale.x, 0), Color.green);
-        Debug.DrawRay(m_originPos.transform.position, new Vector2(0, m_ray.y), Color.green);
-        
+        }      
 
         InputMove();
         UpdateMove();
         InputJump();
         UpdateJump();
         InputAttack();
+    }
+    private void OnDrawGizmos()
+    {
+        //X方向のBoxCast
+        Gizmos.DrawCube(new Vector2(m_originPos.transform.position.x + m_boxRay.x / 2 * transform.localScale.x, m_originPos.transform.position.y), new Vector2(m_boxRay.x, m_boxRaySize));
+        //Y方向のBoxCast
+        Gizmos.DrawCube(new Vector2(m_originPos.transform.position.x, m_originPos.transform.position.y + m_boxRay.y / 2), new Vector2(m_boxRaySize, m_boxRay.y));
     }
     /// <summary>攻撃の入力</summary>
     void InputAttack()
@@ -87,17 +83,19 @@ public class PlayerMove : MonoBehaviour
 
                 if (m_v > 0.5)
                 {
-                    m_hit = Physics2D.BoxCast(new Vector2(m_originPos.transform.position.x, m_originPos.transform.position.y + m_ray.y), new Vector2(1,1), 0, new Vector2(0,0), 0, m_layer);
+                    //Y方向のrayを出す
+                    m_hit = Physics2D.BoxCast(new Vector2(m_originPos.transform.position.x, m_originPos.transform.position.y + m_boxRay.y / 2), new Vector2(m_boxRaySize,m_boxRay.y), 0, new Vector2(0,0), 0, m_layer);
                 }
                 else
                 {
-                    //ray出す
-                    m_hit = Physics2D.BoxCast(new Vector2(m_originPos.transform.position.x + m_ray.x, m_originPos.transform.position.y), new Vector2(1, 1), 0, new Vector2(0, 0), 0, m_layer);
+                    //X方向のrayを出す
+                    m_hit = Physics2D.BoxCast(new Vector2(m_originPos.transform.position.x + m_boxRay.x / 2 * transform.localScale.x, m_originPos.transform.position.y), new Vector2(m_boxRay.x, m_boxRaySize), 0, new Vector2(0, 0), 0, m_layer);
                 }
 
                 //当たったら
                 if (m_hit && m_v > 0.5)
                 {
+                    m_EnemyHealth = m_hit.collider.GetComponent<EnemyHealth>();
                     m_anim.SetBool("Attack", true);
                     m_anim.SetBool("VarticalAttack", true);
                     Instantiate(m_rayUpHitObject, m_hit.point, Quaternion.identity);
@@ -107,12 +105,12 @@ public class PlayerMove : MonoBehaviour
                     m_EnemyHealth = null;
                     m_anim.SetBool("VarticalAttack", true);
                     m_anim.SetBool("Attack", true);
-                    var ins = Instantiate(m_rayUpObject, new Vector2(m_originPos.transform.position.x, m_originPos.transform.position.y + m_ray.y), Quaternion.identity);
+                    var ins = Instantiate(m_rayUpObject, new Vector2(m_originPos.transform.position.x, m_originPos.transform.position.y + m_boxRay.y), Quaternion.identity);
                     ins.transform.SetParent(this.transform);
                 }
                 else if (m_hit)
                 {
-                    //m_EnemyHealth = m_hit.collider.GetComponent<EnemyHealth>();
+                    m_EnemyHealth = m_hit.collider.GetComponent<EnemyHealth>();
                     m_anim.SetBool("HorizontalAttack", true);
                     m_anim.SetBool("Attack", true);
                     Instantiate(m_rayHitObject, m_hit.point, Quaternion.identity);
@@ -122,7 +120,7 @@ public class PlayerMove : MonoBehaviour
                     m_EnemyHealth = null;
                     m_anim.SetBool("HorizontalAttack", true);
                     m_anim.SetBool("Attack", true);
-                    Instantiate(m_rayObject, new Vector2(m_originPos.transform.position.x + m_ray.x * this.transform.localScale.x, m_originPos.transform.position.y), Quaternion.identity);
+                    Instantiate(m_rayObject, new Vector2(m_originPos.transform.position.x + m_boxRay.x * this.transform.localScale.x, m_originPos.transform.position.y), Quaternion.identity);
                 }
 
                 m_timer = 0;
