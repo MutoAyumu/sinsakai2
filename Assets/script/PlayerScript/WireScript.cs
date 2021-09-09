@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WireScript : MonoBehaviour
+public class WireScript : MonoBehaviour, IPause
 {
     float m_h;
     float m_v;
@@ -37,6 +37,8 @@ public class WireScript : MonoBehaviour
     public  SpringJoint2D m_springJoint2D;
     PlayerMove Playermove;
 
+    bool isGrapple = false;
+
     private enum LaunchType
     {
         Physics_Launch,//kokokiku
@@ -56,7 +58,10 @@ public class WireScript : MonoBehaviour
 
         if(Input.GetButtonDown("Fire2"))
         {
-            SetGrapplePoint();
+            if (!isGrapple)
+            {
+                SetGrapplePoint();
+            }
         }
         else if(Input.GetButtonUp("Fire2"))
         {
@@ -68,6 +73,14 @@ public class WireScript : MonoBehaviour
             //m_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             //m_rb.gravityScale = m_GravityNow;
         }
+    }
+    void IPause.Pause()
+    {
+        isGrapple = true;
+    }
+    void IPause.Resume()
+    {
+        isGrapple = false;
     }
 
     void SetGrapplePoint()

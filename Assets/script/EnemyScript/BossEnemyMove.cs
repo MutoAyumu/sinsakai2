@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossEnemyMove : MonoBehaviour
+public class BossEnemyMove : MonoBehaviour, IPause
 {
     [SerializeField] EnemyHealth m_enemy;
     [SerializeField] GameObject[] m_children = default;
@@ -22,6 +22,9 @@ public class BossEnemyMove : MonoBehaviour
     Animator m_anim;
     Vector2 m_enemyPos = default;
 
+    float m_angularVelocity;
+    Vector2 m_velocity;
+
     float m_hpJudge;
     float m_timer = 0;
     float m_secondTimer = 0;
@@ -33,6 +36,7 @@ public class BossEnemyMove : MonoBehaviour
     bool m_phaseChange = true;
     bool m_gameStart = false;
     bool m_gameEnd = false;
+    bool isMove = true;
 
 
     Vector2 m_dir = Vector2.zero;
@@ -47,7 +51,7 @@ public class BossEnemyMove : MonoBehaviour
     void Update()
     {
 
-        if (m_gameStart && !m_gameEnd)
+        if (m_gameStart && !m_gameEnd && isMove)
         {
             if (m_enemy.m_currentHp > 0.5 * m_hpJudge)
             {
@@ -180,7 +184,7 @@ public class BossEnemyMove : MonoBehaviour
             PhaseChange();
         }
 
-        if (m_secondMove)
+        else if (m_secondMove)
         {
             SecondAction();
         }
@@ -189,7 +193,7 @@ public class BossEnemyMove : MonoBehaviour
     void SecondAction()
     {
         m_enemyPos = this.transform.position;
-        m_playerPos = GameObject.Find("Playerbox").transform.position;
+        m_playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         Vector2 m_move = (m_playerPos - m_enemyPos).normalized;
 
         m_secondTimer += Time.deltaTime;
@@ -238,5 +242,25 @@ public class BossEnemyMove : MonoBehaviour
         {
             this.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x) * -1, this.transform.localScale.y, this.transform.localScale.z);
         }
+    }
+    void IPause.Pause()
+    {
+        m_flipX = false;
+        m_anim.speed = 0;
+        isMove = false;
+        m_angularVelocity = m_rb.angularVelocity;
+        m_velocity = m_rb.velocity;
+        m_rb.simulated = false;
+        m_rb.Sleep();
+    }
+    void IPause.Resume()
+    {
+        m_flipX = true;
+        m_anim.speed = 1;
+        isMove = true;
+        m_rb.simulated = true;
+        m_rb.angularVelocity = m_angularVelocity;
+        m_rb.velocity = m_velocity;
+        m_rb.WakeUp();
     }
 }

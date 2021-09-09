@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GrappleRope : MonoBehaviour
+public class GrappleRope : MonoBehaviour, IPause
 {
     [Header("General refrences:")]
     public WireScript m_wireScript;
@@ -67,6 +67,14 @@ public class GrappleRope : MonoBehaviour
         {
             DrawRope();
         }
+    }
+    void IPause.Pause()
+    {
+        drawLine = false;
+    }
+    void IPause.Resume()
+    {
+        drawLine = true;
     }
 
     void DrawRope()

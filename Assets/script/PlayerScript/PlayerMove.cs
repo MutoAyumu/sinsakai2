@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : MonoBehaviour, IPause
 {
     //動き
+    float m_angularVelocity;
+    Vector2 m_velocity;
     [SerializeField] public float m_movepower = 1f;
     [SerializeField] public float m_jumppower = 1f;
     [HideInInspector] public float m_playerDirection = 1f;
@@ -257,5 +259,25 @@ public class PlayerMove : MonoBehaviour
             m_rayObject.transform.localScale = new Vector3(-1 * m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
             m_rayHitObject.transform.localScale = new Vector3(-1 * m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
         }
+    }
+    void IPause.Pause()
+    {
+        m_anim.speed = 0;
+        // 速度・回転を保存し、Rigidbody を停止する
+        m_angularVelocity = m_rb.angularVelocity;
+        m_velocity = m_rb.velocity;
+        m_rb.simulated = false;
+        m_rb.Sleep();
+        m_flipX = false;
+    }
+    void IPause.Resume()
+    {
+        // Rigidbody の活動を再開し、保存しておいた速度・回転を戻す
+        m_rb.simulated = true;
+        m_rb.angularVelocity = m_angularVelocity;
+        m_rb.velocity = m_velocity;
+        m_rb.WakeUp();
+        m_anim.speed = 1;
+        m_flipX = true;
     }
 }

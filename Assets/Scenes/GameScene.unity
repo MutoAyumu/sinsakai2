@@ -763,12 +763,12 @@ PrefabInstance:
     - target: {fileID: 1927755332517577560, guid: 83180809d13b733428fc8e1cd818ebe9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 238.51
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 1927755332517577560, guid: 83180809d13b733428fc8e1cd818ebe9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -46.16
+      value: -25.7
       objectReference: {fileID: 0}
     - target: {fileID: 1927755332517577560, guid: 83180809d13b733428fc8e1cd818ebe9,
         type: 3}
@@ -41431,12 +41431,12 @@ PrefabInstance:
     - target: {fileID: 2138271840280403403, guid: 8435b4d82d15ed643a1c27f3dc8de2e6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 8.1
       objectReference: {fileID: 0}
     - target: {fileID: 2138271840280403403, guid: 8435b4d82d15ed643a1c27f3dc8de2e6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.5
+      value: -30.6
       objectReference: {fileID: 0}
     - target: {fileID: 2138271840280403403, guid: 8435b4d82d15ed643a1c27f3dc8de2e6,
         type: 3}
@@ -102886,16 +102886,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 501487517, guid: 781f518a448114341b7e680cdf20f16a, type: 3}
       propertyPath: m_maxHp
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 501487517, guid: 781f518a448114341b7e680cdf20f16a, type: 3}
       propertyPath: m_score
       value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 501487518, guid: 781f518a448114341b7e680cdf20f16a, type: 3}
+      propertyPath: m_speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 501487518, guid: 781f518a448114341b7e680cdf20f16a, type: 3}
+      propertyPath: m_wall.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 501487518, guid: 781f518a448114341b7e680cdf20f16a, type: 3}
       propertyPath: m_movePoint
       value: 
       objectReference: {fileID: 307869584}
+    - target: {fileID: 501487518, guid: 781f518a448114341b7e680cdf20f16a, type: 3}
+      propertyPath: m_secondSpeed
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 501487519, guid: 781f518a448114341b7e680cdf20f16a, type: 3}
       propertyPath: m_Enabled
       value: 1

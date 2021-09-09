@@ -12,7 +12,6 @@ public class SceneChange : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 1;
         Gmanager = GameObject.Find("gamemanager").GetComponent<gamemanager>();
         Gmanager.m_end = false;
         Gmanager.m_gameSet = false;

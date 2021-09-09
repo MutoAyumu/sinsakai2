@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMove : MonoBehaviour
+public class EnemyMove : MonoBehaviour, IPause
 {
     Rigidbody2D m_rb;
     Animator m_anim;
@@ -15,6 +15,7 @@ public class EnemyMove : MonoBehaviour
     float m_scaleX;
 
     bool m_join = true;
+    bool isAttack = true;
     public bool m_moveAnim = default;
 
     [SerializeField] Vector2 m_rayForGround = Vector2.zero;
@@ -74,7 +75,7 @@ public class EnemyMove : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player" && isAttack)
         {
             m_player = null;
             m_anim.SetBool("Attack", false);
@@ -102,5 +103,22 @@ public class EnemyMove : MonoBehaviour
         {
             this.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x) * -1, this.transform.localScale.y, this.transform.localScale.z);
         }
+    }
+    void IPause.Pause()
+    {
+        m_rb.Sleep();
+        m_anim.speed = 0;
+        m_flipX = false;
+        m_join = false;
+        isAttack = false;
+        StopCoroutine(StopTime());
+    }
+    void IPause.Resume()
+    {
+        m_rb.WakeUp();
+        m_anim.speed = 1;
+        m_flipX = true;
+        m_join = true;
+        isAttack = true;
     }
 }

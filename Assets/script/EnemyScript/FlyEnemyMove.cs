@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyEnemyMove : MonoBehaviour
+public class FlyEnemyMove : MonoBehaviour, IPause
 {
     Vector2 m_enemyPos;
     Vector2 m_playerPos;
@@ -20,6 +20,8 @@ public class FlyEnemyMove : MonoBehaviour
     [SerializeField]float m_speed = 1f;
     [SerializeField] bool m_flipX = false;
 
+    bool isMove = false;
+
     public PlayerHealth m_player;
 
     private void Start()
@@ -30,7 +32,7 @@ public class FlyEnemyMove : MonoBehaviour
 
     private void Update()
     {
-        if (!m_patrol)
+        if (!m_patrol && !isMove)
         {
             Patrol();
         }
@@ -79,7 +81,7 @@ public class FlyEnemyMove : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collider)
     {
-        if(collider.gameObject.tag == "Player")
+        if(collider.gameObject.tag == "Player" && !isMove)
         {
             m_playerPos = collider.transform.position;
             Tracking(collider.GetComponent<PlayerHealth>());
@@ -89,7 +91,7 @@ public class FlyEnemyMove : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "Player" && !isMove)
         {
             
             m_patrol = false;
@@ -108,5 +110,19 @@ public class FlyEnemyMove : MonoBehaviour
         {
             this.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x) * -1, this.transform.localScale.y, this.transform.localScale.z);
         }
+    }
+    void IPause.Pause()
+    {
+        m_rb.Sleep();
+        m_anim.speed = 0;
+        m_flipX = false;
+        isMove = true;
+    }
+    void IPause.Resume()
+    {
+        m_rb.WakeUp();
+        m_anim.speed = 1;
+        m_flipX = true;
+        isMove = false;
     }
 }
