@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BomScript : MonoBehaviour
+public class HomingScript : MonoBehaviour,IPause
 {
     Rigidbody2D m_rb;
     Animator m_anim;
@@ -15,6 +15,8 @@ public class BomScript : MonoBehaviour
     Vector2 PlayerPos;
     Vector2 Move;
     [SerializeField] bool m_flipX = false;
+    [SerializeField] string m_animName = "Explosion";
+    bool isMove = true;
     void Start()
     {
         m_limitTime = Random.Range(5, 10);
@@ -24,8 +26,11 @@ public class BomScript : MonoBehaviour
 
     void Update()
     {
-        UpdateMove();
-        UpdateTimer();
+        if (isMove)
+        {
+            UpdateMove();
+            UpdateTimer();
+        }
 
         PlayerPos = GameObject.FindWithTag("Player").transform.position;
 
@@ -48,7 +53,7 @@ public class BomScript : MonoBehaviour
 
         if (m_timer > m_limitTime)
         {
-            m_anim.Play("Explosion");
+            m_anim.Play(m_animName);
         }
     }
     void Explosion()
@@ -72,9 +77,13 @@ public class BomScript : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && this.gameObject.name == "Bom(Clone)")
         {
             player.TakeDamage(m_damage);
+            Destroy(this.gameObject);
+        }
+        else if(collision.gameObject.tag == "Player")
+        {
             Destroy(this.gameObject);
         }
     }
@@ -96,5 +105,19 @@ public class BomScript : MonoBehaviour
         {
             this.transform.localScale = new Vector3(Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
         }
+    }
+    void IPause.Pause()
+    {
+        m_anim.speed = 0;
+        m_flipX = false;
+        isMove = false;
+        m_rb.Sleep();
+    }
+    void IPause.Resume()
+    {
+        m_anim.speed = 1;
+        m_flipX = true;
+        isMove = true;
+        m_rb.WakeUp();
     }
 }

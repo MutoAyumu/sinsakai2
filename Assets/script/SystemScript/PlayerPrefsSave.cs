@@ -16,21 +16,21 @@ public class PlayerPrefsSave : MonoBehaviour
 
     public void SaveScore()
     {
-        var Gmanager = GameObject.Find("gamemanager").GetComponent<gamemanager>();
+        var Smanager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 
-        if (m_highScore1 < Gmanager.m_score)
+        if (m_highScore1 < Smanager.m_score)
         {
-            m_highScore1 = Gmanager.m_score;
+            m_highScore1 = Smanager.m_score;
             PlayerPrefs.SetFloat("score1", m_highScore1);
         }
-        else if(m_highScore2 < Gmanager.m_score)
+        else if(m_highScore2 < Smanager.m_score)
         {
-            m_highScore2 = Gmanager.m_score;
+            m_highScore2 = Smanager.m_score;
             PlayerPrefs.SetFloat("score2", m_highScore2);
         }
         else
         {
-            m_highScore3 = Gmanager.m_score;
+            m_highScore3 = Smanager.m_score;
             PlayerPrefs.SetFloat("score3", m_highScore3);
         }
     }

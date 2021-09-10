@@ -6,6 +6,7 @@ public class EnemyMove : MonoBehaviour, IPause
 {
     Rigidbody2D m_rb;
     Animator m_anim;
+    [HideInInspector]public AudioSource m_audio;
     Vector2 m_dir = Vector2.zero;
     [HideInInspector]public PlayerHealth m_player;
 
@@ -28,6 +29,7 @@ public class EnemyMove : MonoBehaviour, IPause
 
     void Start()
     {
+        m_audio = GetComponent<AudioSource>();
         m_rb = GetComponent<Rigidbody2D>();
         m_anim = GetComponent<Animator>();
     }
@@ -111,6 +113,7 @@ public class EnemyMove : MonoBehaviour, IPause
         m_flipX = false;
         m_join = false;
         isAttack = false;
+        m_audio.Pause();
         StopCoroutine(StopTime());
     }
     void IPause.Resume()
@@ -120,5 +123,6 @@ public class EnemyMove : MonoBehaviour, IPause
         m_flipX = true;
         m_join = true;
         isAttack = true;
+        m_audio.UnPause();
     }
 }

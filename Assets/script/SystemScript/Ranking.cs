@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Ranking : MonoBehaviour
 {
 
-    gamemanager Gmanager = default;
+    ScoreManager Smanager = default;
 
     string[] ranking = { "ランキング1位", "ランキング2位", "ランキング3位", "ランキング4位", "ランキング5位" };
     int[] rankingValue = new int[5];
@@ -17,11 +17,11 @@ public class Ranking : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Gmanager = GameObject.Find("gamemanager").GetComponent<gamemanager>();
+        Smanager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 
         GetRanking();
 
-        SetRanking(Gmanager.m_score);
+        SetRanking(Smanager.m_score);
 
         for (int i = 0; i < rankingText.Length; i++)
         {

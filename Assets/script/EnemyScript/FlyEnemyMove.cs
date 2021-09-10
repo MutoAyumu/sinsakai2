@@ -9,6 +9,7 @@ public class FlyEnemyMove : MonoBehaviour, IPause
     Vector2 m_move;
     Rigidbody2D m_rb;
     Animator m_anim;
+    AudioSource m_audio;
     float m_scaleX;
 
     [SerializeField] Transform[] m_target;
@@ -28,6 +29,7 @@ public class FlyEnemyMove : MonoBehaviour, IPause
     {
         m_rb = GetComponent<Rigidbody2D>();
         m_anim = GetComponent<Animator>();
+        m_audio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -117,6 +119,7 @@ public class FlyEnemyMove : MonoBehaviour, IPause
         m_anim.speed = 0;
         m_flipX = false;
         isMove = true;
+        m_audio.Pause();
     }
     void IPause.Resume()
     {
@@ -124,5 +127,6 @@ public class FlyEnemyMove : MonoBehaviour, IPause
         m_anim.speed = 1;
         m_flipX = true;
         isMove = false;
+        m_audio.UnPause();
     }
 }

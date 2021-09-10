@@ -10,8 +10,8 @@ public class ClearData : MonoBehaviour
 
     private void Start()
     {
-        var Gmanager = GameObject.Find("gamemanager").GetComponent<gamemanager>();
-        m_PlayerScore.text = $"あなたのスコア:{Gmanager.m_score}";
-        m_PlayerTime.text = $"あなたのタイム:{(int)Gmanager.m_gameTimer}";
+        var Smanager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        m_PlayerScore.text = $"あなたのスコア:{Smanager.m_score}";
+        m_PlayerTime.text = $"あなたのタイム:{(int)Smanager.m_gameTimer}";
     }
 }

@@ -7,31 +7,31 @@ public class SceneChange : MonoBehaviour
     [SerializeField] GameObject m_endPanel = default;
     [SerializeField] GameObject m_instancePrefab = default;
 
-    gamemanager Gmanager;
+    ScoreManager Smanager;
 
     // Start is called before the first frame update
     void Start()
     {
-        Gmanager = GameObject.Find("gamemanager").GetComponent<gamemanager>();
-        Gmanager.m_end = false;
-        Gmanager.m_gameSet = false;
+        Smanager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        Smanager.m_end = false;
+        Smanager.m_gameSet = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Gmanager.m_end)
+        if (Smanager.m_end)
         {
             if (m_instancePrefab == null)
             {
-                StartCoroutine("End");
+                m_instancePrefab = GameObject.Instantiate(m_endPanel);
+                //StartCoroutine("End");
             }
         }
     }
-    IEnumerator End()
-    {
-        yield return new WaitForSeconds(2);
-        Time.timeScale = 0;
-        m_instancePrefab = GameObject.Instantiate(m_endPanel);
-    }
+    //IEnumerator End()
+    //{
+    //    yield return new WaitForSeconds(2);
+    //    m_instancePrefab = GameObject.Instantiate(m_endPanel);
+    //}
 }

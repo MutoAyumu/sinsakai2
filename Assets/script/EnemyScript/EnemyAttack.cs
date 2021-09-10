@@ -13,6 +13,7 @@ public class EnemyAttack : MonoBehaviour
 
         if (m_hit.m_player != null)
         {
+            m_hit.m_audio.Play();
             m_hit.m_player.TakeDamage(m_damage);
         }
     }
