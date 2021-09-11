@@ -33,10 +33,6 @@ public class PauseScript : MonoBehaviour
         {
             m_instancePrefab = GameObject.Instantiate(m_pausePrefab);
         }
-        else
-        {
-            Destroy(m_instancePrefab);
-        }
     }
     public void Back()
     {
