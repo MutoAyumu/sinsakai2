@@ -31,7 +31,7 @@ public class PlayerHealth : MonoBehaviour
     {
         ResPos = GameObject.Find("RespawnPoint").GetComponent<Transform>();
         this.transform.position = ResPos.transform.position;
-        Gmanager = GameObject.Find("gamemanager").GetComponent<gamemanager>();
+        Gmanager = FindObjectOfType<gamemanager>();
         m_maxhp = Gmanager.m_playerHealth;
         currenHp = Gmanager.m_currenthp;
         m_life = Gmanager.lifeNum;

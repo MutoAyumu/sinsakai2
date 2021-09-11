@@ -27,6 +27,23 @@ public class PauseScript : MonoBehaviour
         }
     }
 
+    public void Option()
+    {
+        if (m_instancePrefab == null)
+        {
+            m_instancePrefab = GameObject.Instantiate(m_pausePrefab);
+        }
+        else
+        {
+            Destroy(m_instancePrefab);
+        }
+    }
+    public void Back()
+    {
+        //GameObject obj = this.gameObject.transform.parent.gameObject;
+        Destroy(this.gameObject.transform.parent.gameObject);
+    }
+
     /// <summary>
     /// 一時停止・再開を切り替える
     /// </summary>

@@ -15,6 +15,7 @@ public class PlayerMove : MonoBehaviour, IPause
     //ジャンプカウント
     bool isAir;
     bool isJumping;
+    bool isMove = true;
     float chargedJumpInput;
     [SerializeField] float jumpChargeLimit = 0.5f;
 
@@ -77,7 +78,7 @@ public class PlayerMove : MonoBehaviour, IPause
         m_timer += Time.deltaTime;
         var inputAttack = Input.GetButtonDown("Fire1");
         //ボタンが押されていたら
-        if (inputAttack)
+        if (inputAttack && isMove)
         {
             //経過時間が設定した時間よりも大きかったら
             if (m_timer > m_setTime)
@@ -269,6 +270,7 @@ public class PlayerMove : MonoBehaviour, IPause
         m_rb.simulated = false;
         m_rb.Sleep();
         m_flipX = false;
+        isMove = false;
     }
     void IPause.Resume()
     {
@@ -279,5 +281,6 @@ public class PlayerMove : MonoBehaviour, IPause
         m_rb.WakeUp();
         m_anim.speed = 1;
         m_flipX = true;
+        isMove = true;
     }
 }
