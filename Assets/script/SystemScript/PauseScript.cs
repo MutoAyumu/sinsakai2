@@ -36,7 +36,6 @@ public class PauseScript : MonoBehaviour
     }
     public void Back()
     {
-        //GameObject obj = this.gameObject.transform.parent.gameObject;
         Destroy(this.gameObject.transform.parent.gameObject);
     }
 
