@@ -31,7 +31,7 @@ public class PlayerHealth : MonoBehaviour
     {
         ResPos = GameObject.Find("RespawnPoint").GetComponent<Transform>();
         this.transform.position = ResPos.transform.position;
-        Gmanager = FindObjectOfType<gamemanager>();
+        Gmanager = GameObject.Find("gamemanager").GetComponent<gamemanager>();
         m_maxhp = Gmanager.m_playerHealth;
         currenHp = Gmanager.m_currenthp;
         m_life = Gmanager.lifeNum;
@@ -60,6 +60,7 @@ public class PlayerHealth : MonoBehaviour
         if (!Gmanager.m_godmode)
         {
             currenHp -= damage;
+            Gmanager.m_currenthp = currenHp;
             m_invincible = true;
             StartCoroutine("invincibleReset");
 

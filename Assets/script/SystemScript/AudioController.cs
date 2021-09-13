@@ -10,7 +10,7 @@ public class AudioController : MonoBehaviour
 
     private void Start()
     {
-        m_audioManager = FindObjectOfType<AudioManager>();
+        m_audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         m_volume.value = m_audioManager.m_volume;
     }
 

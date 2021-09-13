@@ -17,6 +17,8 @@ public class HomingScript : MonoBehaviour,IPause
     [SerializeField] bool m_flipX = false;
     [SerializeField] string m_animName = "Explosion";
     bool isMove = true;
+
+    [SerializeField] GameObject m_explosion;
     void Start()
     {
         m_limitTime = Random.Range(5, 10);
@@ -58,27 +60,18 @@ public class HomingScript : MonoBehaviour,IPause
     }
     void Explosion()
     {
-        if(player != null)
-        {
-            player.TakeDamage(m_damage);
-        }
+        Instantiate(m_explosion, this.transform.position, Quaternion.identity);
     }
     void Destroy()
     {
         Destroy(this.gameObject);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            player = collision.GetComponent<PlayerHealth>();
-        }
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player" && this.gameObject.name == "Bom(Clone)")
         {
+            player = collision.gameObject.GetComponent<PlayerHealth>();
             player.TakeDamage(m_damage);
             Destroy(this.gameObject);
         }
@@ -87,13 +80,7 @@ public class HomingScript : MonoBehaviour,IPause
             Destroy(this.gameObject);
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            player = null;
-        }
-    }
+
     void FlipX(float horizontal)
     {
 

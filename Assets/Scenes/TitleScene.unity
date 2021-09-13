@@ -496,6 +496,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1837614851518498332, guid: f69b085aba73e2943b234d6281a65ff1,
+        type: 3}
+      propertyPath: lifeNum
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837614851518498332, guid: f69b085aba73e2943b234d6281a65ff1,
+        type: 3}
+      propertyPath: m_playerHealth
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1837614851518498333, guid: f69b085aba73e2943b234d6281a65ff1,
         type: 3}
       propertyPath: m_RootOrder

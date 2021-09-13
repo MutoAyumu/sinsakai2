@@ -13,7 +13,6 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] Slider m_slider;
     int m_maxValue;
     Animator m_anim;
-
     private void Start()
     {
         m_anim = GetComponent<Animator>();
