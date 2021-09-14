@@ -68,11 +68,7 @@ public class BossEnemyMove : MonoBehaviour, IPause
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (!m_gameStart)
-            {
-                //開始のアニメーションを流す
-                m_anim.Play("StartAnimation");
-            }
+            GameStart();
         }
     }
 

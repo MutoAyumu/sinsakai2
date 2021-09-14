@@ -52,12 +52,7 @@ public class PlayerMove : MonoBehaviour, IPause
         m_player = GetComponent<PlayerHealth>();
     }
     void Update()
-    {
-        //Time.timeScaleが0ならばUpdateの処理を行わない
-        if (Mathf.Approximately(Time.timeScale, 0f))
-        {
-            return;
-        }      
+    {   
 
         InputMove();
         UpdateMove();
@@ -259,6 +254,18 @@ public class PlayerMove : MonoBehaviour, IPause
             this.transform.localScale = new Vector3(-1 * m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
             m_rayObject.transform.localScale = new Vector3(-1 * m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
             m_rayHitObject.transform.localScale = new Vector3(-1 * m_playerDirection * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
+        }
+    }
+
+    public void PlayerSignal()
+    {
+        if(isMove)
+        {
+            isMove = false;
+        }
+        else
+        {
+            isMove = true;
         }
     }
     void IPause.Pause()

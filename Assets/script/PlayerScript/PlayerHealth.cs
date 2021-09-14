@@ -60,7 +60,7 @@ public class PlayerHealth : MonoBehaviour
         if (!Gmanager.m_godmode)
         {
             currenHp -= damage;
-            Gmanager.m_currenthp = currenHp;
+            //Gmanager.m_currenthp = currenHp;
             m_invincible = true;
             StartCoroutine("invincibleReset");
 
