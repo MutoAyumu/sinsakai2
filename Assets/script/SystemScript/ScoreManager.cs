@@ -24,7 +24,7 @@ public class ScoreManager : MonoBehaviour, IPause
     private void Awake()
     {
         m_gameTimer = m_minutes * 60;
-        m_scoreText.text = "スコア : " + m_score.ToString();
+        m_scoreText.text = "Score : " + m_score.ToString();
 
         if (instance != null)
         {
@@ -51,7 +51,7 @@ public class ScoreManager : MonoBehaviour, IPause
 
         if (m_timeText)
         {
-            m_timeText.text = "残り時間 : " + ((int)m_gameTimer).ToString();
+            m_timeText.text = "Time:" + ((int)m_gameTimer).ToString();
         }
     }
 
@@ -67,7 +67,7 @@ public class ScoreManager : MonoBehaviour, IPause
         if (m_scoreText && !isStop)
         {
             m_score += score;
-            m_scoreText.text = "スコア : " + m_score.ToString();
+            m_scoreText.text = "Score:" + m_score.ToString();
         }
     }
     void IPause.Pause()
