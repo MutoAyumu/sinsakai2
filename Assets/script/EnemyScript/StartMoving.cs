@@ -6,14 +6,27 @@ using UnityEngine.Events;
 public class StartMoving : MonoBehaviour
 {
     [SerializeField] UnityEvent m_playerJoinEvent = default;
-    [SerializeField] UnityEvent m_playerExitEvent = default;
+    [SerializeField] GameObject m_enemys = default;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        m_playerJoinEvent.Invoke();
+        if (collision.gameObject.tag == "Player")
+        {
+            m_playerJoinEvent.Invoke();
+            if (m_enemys)
+            {
+                m_enemys.SetActive(true);
+            }
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        m_playerExitEvent.Invoke();
+        if (collision.gameObject.tag == "Player")
+        {
+            if (m_enemys)
+            {
+                m_enemys.SetActive(false);
+            }
+        }
     }
 }
