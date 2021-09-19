@@ -6,13 +6,14 @@ using DG.Tweening;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] float currenHp;
+    [SerializeField] public float currenHp;
     int m_maxhp;
     int m_life;
 
     PlayerCounter m_playerCounter;
 
-    gamemanager Gmanager;
+    PlayerManager Pmanager;
+    GameManager Gmanager;
 
     Transform ResPos = default;
 
@@ -31,10 +32,11 @@ public class PlayerHealth : MonoBehaviour
     {
         ResPos = GameObject.Find("RespawnPoint").GetComponent<Transform>();
         this.transform.position = ResPos.transform.position;
-        Gmanager = GameObject.Find("gamemanager").GetComponent<gamemanager>();
-        m_maxhp = Gmanager.m_playerHealth;
-        currenHp = Gmanager.m_currenthp;
-        m_life = Gmanager.lifeNum;
+        Pmanager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        Gmanager = FindObjectOfType<GameManager>();
+        m_maxhp = Pmanager.m_playerHealth;
+        currenHp = Pmanager.m_currenthp;
+        m_life = Pmanager.lifeNum;
         m_jumpState = m_player.m_jumppower;
         m_moveState = m_player.m_movepower;
         m_webJump = m_jumpState / 2;
@@ -57,7 +59,7 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log("痛い");
 
-        if (!Gmanager.m_godmode)
+        if (!Pmanager.m_godmode)
         {
             currenHp -= damage;
             //Gmanager.m_currenthp = currenHp;
@@ -77,12 +79,13 @@ public class PlayerHealth : MonoBehaviour
                     currenHp = m_maxhp;
                     m_playerCounter.Refresh(currenHp);
                     m_playerCounter.Set(currenHp);
-                    Gmanager.m_currenthp = m_maxhp;
+                    Pmanager.m_currenthp = m_maxhp;
                 }
                 else
                 {
                     m_playerCounter.Refresh(currenHp);
-                    Destroy(gameObject);
+                    Gmanager.GameOver();
+                    Destroy(this.gameObject);
                 }
             }
         }
@@ -183,5 +186,4 @@ public class PlayerHealth : MonoBehaviour
             m_state = PlayerState.Confusion;
         }
     }
-
 }

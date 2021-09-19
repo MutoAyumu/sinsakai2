@@ -3,27 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class gamemanager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static gamemanager instance = null;
-    [SerializeField] public int lifeNum;
-    [SerializeField] public int m_playerHealth;
-    [SerializeField] public float m_currenthp;
-    [SerializeField] public bool m_godmode = false;
+    [SerializeField] Text m_gameOverText = default;
+    [SerializeField] ParticleSystem m_gameOverEffect = default;
+    ScoreManager m_scoreManager;
+    GameObject m_player;
+    bool isOver;
 
-    private void Awake()
+    private void Start()
     {
-        m_currenthp = m_playerHealth;
+        m_scoreManager = FindObjectOfType<ScoreManager>();
+        m_player = GameObject.Find("Playerbox");
+    }
 
-        if (instance != null)
+    private void Update()
+    {
+        if(m_scoreManager.m_gameTimer <= 0)
         {
-            Destroy(this.gameObject);
-
+            GameOver();
         }
-        else
+    }
+
+    public void GameOver()
+    {
+        if (!isOver)
         {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            m_gameOverText.gameObject.SetActive(true);
+            m_scoreManager.isStop = true;
+            Instantiate(m_gameOverEffect, m_player.transform.position, Quaternion.identity);
+            Destroy(m_player);
+            isOver = true;
         }
     }
 }

@@ -8,7 +8,7 @@ public class ScoreManager : MonoBehaviour, IPause
     public static ScoreManager instance = null;
 
 
-    [SerializeField] int m_minutes = 5;
+    [SerializeField] float m_minutes = 5;
     public float m_gameTimer;
 
     [SerializeField] Text m_timeText;
@@ -19,7 +19,7 @@ public class ScoreManager : MonoBehaviour, IPause
     [HideInInspector] public bool m_gameSet = false;
     public bool m_end = false;
 
-    bool isStop = false;
+    [HideInInspector] public bool isStop = false;
 
     private void Awake()
     {
