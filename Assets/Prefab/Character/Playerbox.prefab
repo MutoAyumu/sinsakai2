@@ -925,7 +925,8 @@ MonoBehaviour:
   m_layer:
     serializedVersion: 2
     m_Bits: 1280
-  m_ray: {x: 5, y: 5}
+  m_boxRay: {x: 0, y: 0}
+  m_boxRaySize: 1
   m_rayHitObject: {fileID: 8505944177627269949, guid: 9b4fcbad9fe0c5f4b8ac6ec7bac54233,
     type: 3}
   m_rayObject: {fileID: 2276976873323302169, guid: 5a025aaad7aab9a42b72b070bf548253,
@@ -942,7 +943,7 @@ SpringJoint2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4933766961596350460}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 0}

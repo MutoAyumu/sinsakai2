@@ -81,7 +81,8 @@ public class EnemyMove : MonoBehaviour, IPause
         {
             m_player = null;
             m_anim.SetBool("Attack", false);
-            StartCoroutine(StopTime());
+            //StartCoroutine(StopTime());
+            m_join = true;
             m_rb.constraints = RigidbodyConstraints2D.None;
             m_rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY;
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MovingFloor : MonoBehaviour
+public class MovingFloor : MonoBehaviour, IPause
 {
     Rigidbody2D m_rb;
     Vector2 m_move;
@@ -38,5 +38,14 @@ public class MovingFloor : MonoBehaviour
             m_count = (m_count + 1) % m_target.Length;
         }
     }
-
+    void IPause.Pause()
+    {
+        m_rb.simulated = false;
+        m_rb.Sleep();
+    }
+    void IPause.Resume()
+    {
+        m_rb.simulated = true;
+        m_rb.WakeUp();
+    }
 }
