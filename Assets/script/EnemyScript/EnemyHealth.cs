@@ -8,7 +8,7 @@ public class EnemyHealth : MonoBehaviour
 {
 
     [SerializeField] public int m_maxHp;
-    [SerializeField] float m_score = 100;
+    [SerializeField] int m_score = 100;
     public int m_currentHp;
     [SerializeField] Slider m_slider;
     int m_maxValue;

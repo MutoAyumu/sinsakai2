@@ -69,6 +69,11 @@ public class PlayerHealth : MonoBehaviour
             if (currenHp > 0)
             {
                 m_playerCounter.Refresh(currenHp);
+
+                if(currenHp >= m_maxhp)
+                {
+                    m_playerCounter.Set(currenHp);
+                }
             }
             else
             {
@@ -185,5 +190,11 @@ public class PlayerHealth : MonoBehaviour
         {
             m_state = PlayerState.Confusion;
         }
+    }
+    public void AddLife(int add)
+    {
+        currenHp += add;
+        m_playerCounter.Refresh(currenHp);
+        m_playerCounter.Set(currenHp);
     }
 }

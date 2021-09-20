@@ -45,6 +45,9 @@ public class PlayerMove : MonoBehaviour, IPause
     Animator m_anim = default;
     [HideInInspector] public EnemyHealth m_EnemyHealth;
 
+    /// <summary>持っているアイテムのリスト</summary>
+    List<ItemBase> m_itemList = new List<ItemBase>();
+
     void Start()
     {
         m_rb = GetComponent<Rigidbody2D>();
@@ -59,6 +62,19 @@ public class PlayerMove : MonoBehaviour, IPause
         InputJump();
         UpdateJump();
         InputAttack();
+
+        // アイテムを使う
+        if (Input.GetButtonDown("Fire1"))
+        {
+            if (m_itemList.Count > 0)
+            {
+                // リストの先頭にあるアイテムを使って、破棄する
+                ItemBase item = m_itemList[0];
+                m_itemList.RemoveAt(0);
+                item.Activate();
+                Destroy(item.gameObject);
+            }
+        }
     }
     private void OnDrawGizmos()
     {
@@ -267,6 +283,10 @@ public class PlayerMove : MonoBehaviour, IPause
         {
             isMove = true;
         }
+    }
+    public void GetItem(ItemBase item)
+    {
+        m_itemList.Add(item);
     }
     void IPause.Pause()
     {

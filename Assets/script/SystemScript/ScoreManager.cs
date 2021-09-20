@@ -62,7 +62,7 @@ public class ScoreManager : MonoBehaviour, IPause
             m_gameTimer -= Time.deltaTime;
         }
     }
-    public void Score(float score)
+    public void Score(int score)
     {
         if (m_scoreText && !isStop)
         {
