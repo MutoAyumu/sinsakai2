@@ -13,8 +13,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        m_scoreManager = FindObjectOfType<ScoreManager>();
-        m_player = GameObject.Find("Playerbox");
+        m_scoreManager = FindObjectOfType<ScoreManager>();     
     }
 
     private void Update()
@@ -29,6 +28,7 @@ public class GameManager : MonoBehaviour
     {
         if (!isOver)
         {
+            m_player = GameObject.Find("Playerbox");
             m_gameOverText.gameObject.SetActive(true);
             m_scoreManager.isStop = true;
             Instantiate(m_gameOverEffect, m_player.transform.position, Quaternion.identity);

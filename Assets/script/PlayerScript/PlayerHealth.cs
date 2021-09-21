@@ -7,6 +7,8 @@ using DG.Tweening;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] public float currenHp;
+    [SerializeField] float m_damageInterval = 3f;
+    [SerializeField] Slider m_intervalSlider = default;
     int m_maxhp;
     int m_life;
 
@@ -57,13 +59,12 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
 
-        Debug.Log("痛い");
-
         if (!Pmanager.m_godmode)
         {
             currenHp -= damage;
-            //Gmanager.m_currenthp = currenHp;
             m_invincible = true;
+            m_intervalSlider.value = 1;
+
             StartCoroutine("invincibleReset");
 
             if (currenHp > 0)
@@ -98,7 +99,7 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator invincibleReset()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(m_damageInterval);
         m_invincible = false;
 
     }
@@ -174,6 +175,16 @@ public class PlayerHealth : MonoBehaviour
         if (m_confusion)
         {
             StartCoroutine("StartChangeConfusion");
+        }
+
+        if (m_invincible)
+        {
+            float time = 1 / m_damageInterval;
+
+            if (m_intervalSlider.value >= 0)
+            {
+                m_intervalSlider.value -= time * Time.deltaTime;
+            }
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
