@@ -13,6 +13,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] Slider m_slider;
     int m_maxValue;
     Animator m_anim;
+    [SerializeField] ParticleSystem m_particle = default;
     private void Start()
     {
         m_anim = GetComponent<Animator>();
@@ -48,6 +49,7 @@ public class EnemyHealth : MonoBehaviour
             }
             else
             {
+                Instantiate(m_particle, this.transform.position, Quaternion.identity);
                 Destroy();
             }
         }

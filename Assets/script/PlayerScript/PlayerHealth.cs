@@ -21,6 +21,9 @@ public class PlayerHealth : MonoBehaviour
 
     PlayerState m_state = PlayerState.Normal;
     [SerializeField] PlayerMove m_player;
+    [SerializeField] float m_abnormalTime = 5f;
+    [SerializeField] GameObject m_spiderWebEffect = default;
+    [SerializeField] GameObject m_confusionEffect = default;
     float m_jumpState;
     float m_moveState;
     float m_webJump;
@@ -118,10 +121,11 @@ public class PlayerHealth : MonoBehaviour
             m_player.m_movepower = m_webMove;
             m_player.m_jumppower = m_webJump;
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(m_abnormalTime);
         m_spiderweb = false;
         m_player.m_movepower = m_moveState;
         m_player.m_jumppower = m_jumpState;
+        m_spiderWebEffect.SetActive(false);
         m_state = PlayerState.Normal;
     }
     IEnumerator StateChangePoisoned()
@@ -130,16 +134,17 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(0.1f * Time.deltaTime);
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(m_abnormalTime);
         m_poisoned = false;
         m_state = PlayerState.Normal;
     }
     IEnumerator StartChangeConfusion()
     {
         m_player.m_playerDirection = -1f;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(m_abnormalTime);
         m_confusion = false;
         m_player.m_playerDirection = 1f;
+        m_confusionEffect.SetActive(false);
         m_state = PlayerState.Normal;
     }
     void Update()
@@ -170,11 +175,12 @@ public class PlayerHealth : MonoBehaviour
         if (m_spiderweb)
         {
             StartCoroutine("StateChangeWeb");
-
+            m_spiderWebEffect.SetActive(true);
         }
         if (m_confusion)
         {
             StartCoroutine("StartChangeConfusion");
+            m_confusionEffect.SetActive(true);
         }
 
         if (m_invincible)

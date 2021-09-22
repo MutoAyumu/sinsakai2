@@ -313,6 +313,8 @@ MonoBehaviour:
   m_score: 100
   m_currentHp: 0
   m_slider: {fileID: 0}
+  m_particle: {fileID: 5957663668380998231, guid: 4dffe589b601cbb41885908f6bae11f2,
+    type: 3}
 --- !u!114 &1509915574924074261
 MonoBehaviour:
   m_ObjectHideFlags: 0

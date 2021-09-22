@@ -901,7 +901,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currenHp: 0
+  m_damageInterval: 3
+  m_intervalSlider: {fileID: 0}
   m_player: {fileID: 1635236711}
+  m_abnormalTime: 5
+  m_spiderWebEffect: {fileID: 0}
+  m_confusionEffect: {fileID: 0}
   m_invincible: 0
 --- !u!114 &1635236711
 MonoBehaviour:
@@ -951,11 +956,11 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: -0.29, y: -1.06}
-  m_ConnectedAnchor: {x: 56.255333, y: 2.5969353}
+  m_ConnectedAnchor: {x: -4.4014544, y: -9.099999}
   m_AutoConfigureDistance: 0
   m_Distance: 0.005
   m_DampingRatio: 1
-  m_Frequency: 0
+  m_Frequency: 1
 --- !u!114 &878517403
 MonoBehaviour:
   m_ObjectHideFlags: 0
