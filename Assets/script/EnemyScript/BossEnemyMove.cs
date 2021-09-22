@@ -21,6 +21,7 @@ public class BossEnemyMove : MonoBehaviour, IPause
     Rigidbody2D m_rb;
     Animator m_anim;
     Vector2 m_enemyPos = default;
+    GameManager m_Gmanager;
 
     float m_angularVelocity;
     Vector2 m_velocity;
@@ -46,12 +47,13 @@ public class BossEnemyMove : MonoBehaviour, IPause
         m_anim = GetComponent<Animator>();
         m_hpJudge = m_enemy.m_maxHp;
         m_rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+        m_Gmanager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
     {
 
-        if (m_gameStart && !m_gameEnd && isMove)
+        if (m_gameStart && !m_gameEnd && isMove && !m_Gmanager.isOver)
         {
             if (m_enemy.m_currentHp > 0.5 * m_hpJudge)
             {

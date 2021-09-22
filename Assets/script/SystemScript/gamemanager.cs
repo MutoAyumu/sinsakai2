@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ParticleSystem m_gameOverEffect = default;
     ScoreManager m_scoreManager;
     GameObject m_player;
-    bool isOver;
+    [HideInInspector] public bool isOver;
 
     private void Start()
     {

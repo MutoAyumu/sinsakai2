@@ -17,6 +17,7 @@ public class HomingScript : MonoBehaviour,IPause
     [SerializeField] bool m_flipX = false;
     [SerializeField] string m_animName = "Explosion";
     bool isMove = true;
+    GameManager m_Gmanager;
 
     [SerializeField] GameObject m_explosion;
     void Start()
@@ -24,6 +25,7 @@ public class HomingScript : MonoBehaviour,IPause
         m_limitTime = Random.Range(5, 10);
         m_anim = GetComponent<Animator>();
         m_rb = GetComponent<Rigidbody2D>();
+        m_Gmanager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -34,6 +36,7 @@ public class HomingScript : MonoBehaviour,IPause
             UpdateTimer();
         }
 
+        if(!m_Gmanager.isOver)
         PlayerPos = GameObject.FindWithTag("Player").transform.position;
 
         if(m_flipX)

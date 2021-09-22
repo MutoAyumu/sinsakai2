@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef0e7044c3d3bf468f63c7c2fbe2309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 1
+  m_speed: 3
   m_damage: 1
   m_flipX: 1
   m_animName: WebFade
+  m_explosion: {fileID: 0}
 --- !u!1001 &818080707572348185
 PrefabInstance:
   m_ObjectHideFlags: 0
