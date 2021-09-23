@@ -16,6 +16,7 @@ public class PlayerMove : MonoBehaviour, IPause
     bool isAir;
     bool isJumping;
     bool isMove = true;
+    bool isPause;
     float chargedJumpInput;
     [SerializeField] float jumpChargeLimit = 0.5f;
 
@@ -208,13 +209,11 @@ public class PlayerMove : MonoBehaviour, IPause
     /// <summary>チャージジャンプの動き</summary>
     void UpdateJump()
     {
-        //Debug.Log($"input:{chargedJumpInput}");
         // じゃんぷ中かつリミットに達していなかったら
         if (isJumping && chargedJumpInput < jumpChargeLimit)
         {
             m_anim.SetBool("Jump", true);
             m_rb.velocity = new Vector2(m_rb.velocity.x, m_jumppower);
-            //m_rb.velocity += Vector2.up * m_jumppower * Time.deltaTime;
         }
         else
         {
@@ -248,7 +247,7 @@ public class PlayerMove : MonoBehaviour, IPause
     private void OnTriggerExit2D(Collider2D collision)
     {
         //入ったコライダーのTagが"ground"なら
-        if (collision.gameObject.tag == "ground")
+        if (collision.gameObject.tag == "ground" && !isPause)
         {
             isAir = true;
             m_anim.SetBool("Down", true);
@@ -298,6 +297,7 @@ public class PlayerMove : MonoBehaviour, IPause
         m_rb.Sleep();
         m_flipX = false;
         isMove = false;
+        isPause = true;
     }
     void IPause.Resume()
     {
@@ -309,5 +309,6 @@ public class PlayerMove : MonoBehaviour, IPause
         m_anim.speed = 1;
         m_flipX = true;
         isMove = true;
+        isPause = false;
     }
 }

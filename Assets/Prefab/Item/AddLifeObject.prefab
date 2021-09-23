@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2beb59a4b782849977ee50670dc886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sound: {fileID: 0}
+  m_sound: {fileID: 8300000, guid: e2fabf73b9745b04faf27d3e5a0375c8, type: 3}
   m_whenActivated: 0
   m_addLife: 1
 --- !u!95 &201143514
