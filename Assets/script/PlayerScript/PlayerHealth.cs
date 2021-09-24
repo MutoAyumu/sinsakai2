@@ -212,6 +212,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currenHp += add;
         m_playerCounter.Refresh(currenHp);
+        if(currenHp >= m_maxhp)
         m_playerCounter.Set(currenHp);
     }
 }
