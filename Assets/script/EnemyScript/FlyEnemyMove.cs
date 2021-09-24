@@ -14,6 +14,7 @@ public class FlyEnemyMove : MonoBehaviour, IPause
 
     [SerializeField] Transform[] m_target;
     [SerializeField] float m_stopDis = 0.1f;
+    [SerializeField] FlyEnemyAttack m_enemyAttack = default;
     int n = 0;
     bool m_patrol = false;
 
@@ -99,7 +100,16 @@ public class FlyEnemyMove : MonoBehaviour, IPause
             m_patrol = false;
         }
     }
-    
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player" && !isMove)
+        {
+            var player = collision.gameObject.GetComponent<PlayerHealth>();
+            player.TakeDamage(m_enemyAttack.m_damage);
+        }
+    }
+
     void FlipX(float horizontal)
     {
         m_scaleX = this.transform.localScale.x;

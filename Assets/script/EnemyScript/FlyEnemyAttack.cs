@@ -5,7 +5,7 @@ using UnityEngine;
 public class FlyEnemyAttack : MonoBehaviour
 {
     [SerializeField] FlyEnemyMove m_hit;
-    [SerializeField] int m_damage = 1;
+    [SerializeField, HideInInspector] public int m_damage = 1;
 
 
     void flyEnemyAttack()

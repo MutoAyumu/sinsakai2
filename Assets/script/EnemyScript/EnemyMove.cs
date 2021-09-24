@@ -27,6 +27,8 @@ public class EnemyMove : MonoBehaviour, IPause
 
     [SerializeField] GameObject m_setPos;
 
+    [SerializeField] EnemyAttack m_enemyAttack = default;
+
     void Start()
     {
         m_audio = GetComponent<AudioSource>();
@@ -85,6 +87,14 @@ public class EnemyMove : MonoBehaviour, IPause
             m_join = true;
             m_rb.constraints = RigidbodyConstraints2D.None;
             m_rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY;
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player" && isAttack)
+        {
+            var player = collision.gameObject.GetComponent<PlayerHealth>();
+            player.TakeDamage(m_enemyAttack.m_damage);
         }
     }
 

@@ -429,6 +429,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   m_setPos: {fileID: 1011165148}
+  m_enemyAttack: {fileID: 1651288976}
 --- !u!114 &1651288976
 MonoBehaviour:
   m_ObjectHideFlags: 0

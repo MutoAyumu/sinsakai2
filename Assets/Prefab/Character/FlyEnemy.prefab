@@ -331,6 +331,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   m_stopDis: 0.05
+  m_enemyAttack: {fileID: 2051459830}
   m_attackDis: 3
   m_speed: 3
   m_flipX: 1

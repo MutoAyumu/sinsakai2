@@ -63,5 +63,9 @@ public class Ranking : MonoBehaviour
             PlayerPrefs.SetInt(ranking[i], rankingValue[i]);
         }
     }
+    public void ResetPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 }
 

@@ -15,7 +15,7 @@ public class PlayerMove : MonoBehaviour, IPause
     //ジャンプカウント
     bool isAir;
     bool isJumping;
-    bool isMove = true;
+    [SerializeField] public  bool isMove = true;
     bool isPause;
     float chargedJumpInput;
     [SerializeField] float jumpChargeLimit = 0.5f;

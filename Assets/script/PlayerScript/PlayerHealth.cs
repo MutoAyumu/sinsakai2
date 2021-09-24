@@ -68,7 +68,7 @@ public class PlayerHealth : MonoBehaviour
             m_invincible = true;
             m_intervalSlider.value = 1;
 
-            StartCoroutine("invincibleReset");
+            //StartCoroutine("invincibleReset");
 
             if (currenHp > 0)
             {
@@ -100,12 +100,14 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    IEnumerator invincibleReset()
-    {
-        yield return new WaitForSeconds(m_damageInterval);
-        m_invincible = false;
-
-    }
+    //IEnumerator invincibleReset()
+    //{
+    //    if (m_player.isMove)
+    //    {
+    //        yield return new WaitForSeconds(m_damageInterval);
+    //        m_invincible = false;
+    //    }
+    //}
 
     enum PlayerState
     {
@@ -183,13 +185,16 @@ public class PlayerHealth : MonoBehaviour
             m_confusionEffect.SetActive(true);
         }
 
-        if (m_invincible)
+        if (m_invincible && m_player.isMove)
         {
             float time = 1 / m_damageInterval;
 
             if (m_intervalSlider.value >= 0)
             {
                 m_intervalSlider.value -= time * Time.deltaTime;
+
+                if (m_intervalSlider.value <= 0)
+                    m_invincible = false;
             }
         }
     }
